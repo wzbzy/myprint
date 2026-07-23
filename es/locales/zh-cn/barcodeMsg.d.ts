@@ -1,0 +1,23 @@
+declare const _default: {
+    CODE128: string;
+    CODE128A: string;
+    CODE128B: string;
+    CODE128C: string;
+    CODE39: string;
+    EAN2: string;
+    EAN5: string;
+    EAN8: string;
+    EAN13: string;
+    UPC: string;
+    'UPC-E': string;
+    ITF: string;
+    ITF14: string;
+    MSI: string;
+    MSI10: string;
+    MSI11: string;
+    MSI1010: string;
+    MSI1110: string;
+    codabar: string;
+    pharmacode: string;
+};
+export default _default;

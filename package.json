@@ -1,0 +1,86 @@
+{
+  "name": "print-design-myprint",
+  "version": "1.0.36",
+  "main": "lib/index.js",
+  "module": "es/index.mjs",
+  "types": "es/index.d.ts",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "操作简单，组件丰富的一站式打印解决方案打印设计器",
+  "author": "chushenshen <504640003@qq.com>",
+  "keywords": [
+    "print",
+    "design",
+    "MyPrint",
+    "打印",
+    "设计",
+    "可视化"
+  ],
+  "homepage": "https://demo.myprint.top/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wzbzy/myprint"
+  },
+  "bugs": {
+    "url": "https://github.com/wzbzy/myprint/issues"
+  },
+  "exports": {
+    ".": {
+      "require": "./lib/index.js",
+      "import": "./es/index.mjs",
+      "types": "./es/index.d.ts"
+    },
+    "./es/*": {
+      "import": "./es/*/index.mjs",
+      "types": "./es/*/index.d.ts"
+    },
+    "./lib/*": {
+      "require": "./lib/*/index.js",
+      "types": "./lib/*/index.d.ts"
+    },
+    "./css/*": "./css/styles/*"
+  },
+  "unpkg": "dist/index.full.js",
+  "jsdelivr": "dist/index.full.js",
+  "style": "dist/index.css",
+  "dependencies": {
+    "@daybrush/utils": "^1.13.0",
+    "@egjs/children-differ": "^1.0.1",
+    "@moveable/helper": "^0.1.3",
+    "@popperjs/core": "^2.11.8",
+    "@vueuse/core": "^10.6.1",
+    "d3-array": "^3.2.4",
+    "d3-drag": "^3.0.0",
+    "d3-path": "^3.1.0",
+    "d3-selection": "^3.0.0",
+    "d3-shape": "^3.2.0",
+    "html2canvas": "^1.4.1",
+    "jsbarcode": "^3.11.5",
+    "jspdf": "^2.5.1",
+    "lodash": "^4.17.21",
+    "mitt": "^3.0.0",
+    "moveable": "^0.53.0",
+    "perfect-scrollbar": "^1.5.5",
+    "pinia": "^2.1.4",
+    "qrcode": "^1.5.3",
+    "sass": "^1.53.0",
+    "selecto": "^1.26.3",
+    "vue-cropper": "^1.1.1",
+    "vue-demi": "^0.14.6",
+    "vue-i18n": "^9.3.0",
+    "vue3-colorpicker": "^2.2.3"
+  },
+  "peerDependencies": {
+    "@types/d3-array": "^3.2.1",
+    "@types/d3-drag": "^3.0.7",
+    "@types/d3-path": "^3.0.2",
+    "@types/d3-selection": "^3.0.10",
+    "@types/d3-shape": "^3.1.6",
+    "@types/lodash": "^4.17.7",
+    "@types/qrcode": "^1.5.5",
+    "vue": "^3.4.31"
+  },
+  "license": "Apache-2.0"
+}

@@ -1,0 +1,1 @@
+{"version":3,"file":"font.js","sources":["../../../../../src/locales/zh-cn/font.ts"],"sourcesContent":["export default {\r\n    'font': '字体',\r\n    'font.size': '字号',\r\n    'font.default': '默认'\r\n};\r\n\r\n\r\n\r\n"],"names":[],"mappings":";;;;AAAA,WAAe;AAAA,EACX,MAAQ,EAAA,cAAA;AAAA,EACR,WAAa,EAAA,cAAA;AAAA,EACb,cAAgB,EAAA,cAAA;AACpB,CAAA;;;;"}

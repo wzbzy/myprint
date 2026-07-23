@@ -1,0 +1,1 @@
+{"version":3,"file":"preview.js","sources":["../../../../../src/locales/zh-cn/preview.ts"],"sourcesContent":["export default {\r\n    'preview.download.pdf': '下载PDF'\r\n\r\n};\r\n"],"names":[],"mappings":";;;;AAAA,cAAe;AAAA,EACX,sBAAwB,EAAA,iBAAA;AAE5B,CAAA;;;;"}
