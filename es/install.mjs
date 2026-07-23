@@ -1,7 +1,7 @@
 import 'vue3-colorpicker/style.css';
 import { mittKey } from './constants/keys.mjs';
 import { createPinia } from 'pinia';
-import src_default from './node_modules/.pnpm/pinia-plugin-persistedstate@3.2.3_pinia@2.3.1_typescript@5.9.3_vue@3.5.40_typescript@5.9.3__/node_modules/pinia-plugin-persistedstate/dist/index.mjs';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 import Vue3ColorPicker from 'vue3-colorpicker';
 import VueCropper from 'vue-cropper';
 import 'vue-cropper/dist/index.css';
@@ -17,7 +17,7 @@ const install = {
     if (app.config.globalProperties.$pinia) {
     } else {
       const pinia = createPinia();
-      pinia.use(src_default);
+      pinia.use(piniaPluginPersistedstate);
       app.use(pinia);
     }
     app.use(VueCropper).use(Vue3ColorPicker);
