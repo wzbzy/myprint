@@ -11,6 +11,7 @@ import { parallel } from 'gulp';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
 import glob from 'fast-glob';
 import replace from '@rollup/plugin-replace';
+import { ignoreVueStylePlugin } from './plugins/ignore-vue-style';
 // import { camelCase, upperFirst } from 'lodash';
 // import {
 //   PKG_BRAND_NAME,
@@ -203,6 +204,7 @@ function customReplacePlugin(): Plugin {
 
 async function buildFullEntry(minify: boolean) {
     const plugins: Plugin[] = [
+        ignoreVueStylePlugin(),
         // ElementPlusAlias(),
         VueMacros({
             setupComponent: false,

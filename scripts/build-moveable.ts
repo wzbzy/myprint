@@ -13,6 +13,7 @@ import esbuild from 'rollup-plugin-esbuild';
 import glob from 'fast-glob';
 import type { OutputOptions } from 'rollup';
 import { resolvePackagePath } from './util';
+import { ignoreVueStylePlugin } from './plugins/ignore-vue-style';
 import path from 'path';
 // import typescript from 'rollup-plugin-typescript2'
 
@@ -67,6 +68,7 @@ const build = async (pkgDirName: string) => {
     const bundle = await rollup({
         input,
         plugins: [
+            ignoreVueStylePlugin(),
             VueMacros({
                 setupComponent: false,
                 setupSFC: false,

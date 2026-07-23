@@ -1,0 +1,1 @@
+{"version":3,"file":"font.js","sources":["../../../../../src/locales/en-us/font.ts"],"sourcesContent":["export default {\r\n    'font': 'Font',\r\n    'font.size': 'Font Size',\r\n    'font.default': 'Default'\r\n};\r\n"],"names":[],"mappings":";;;;AAAA,WAAe;AAAA,EACX,MAAQ,EAAA,MAAA;AAAA,EACR,WAAa,EAAA,WAAA;AAAA,EACb,cAAgB,EAAA,SAAA;AACpB,CAAA;;;;"}
