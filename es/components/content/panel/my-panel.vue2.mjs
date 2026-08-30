@@ -12,6 +12,7 @@ import Design from '../../design/design.vue.mjs';
 import { initSelecto, selecto } from '../../../plugins/moveable/selecto.mjs';
 import AuxiliaryLine from '../../design/auxiliary/auxiliary-line.vue.mjs';
 import MyIcon from '../../my/icon/my-icon.vue.mjs';
+import { i18n } from '../../../locales/index.mjs';
 import { mitt } from '../../../utils/utils.mjs';
 
 const _hoisted_1 = { class: "design-panel user-select-none" };
@@ -166,6 +167,8 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
         removeElement(element);
         element.x -= target.x;
         element.y -= target.y;
+        element.x = Math.min(Math.max(element.x, 0), Math.max(target.width - element.width, 0));
+        element.y = Math.min(Math.max(element.y, 0), Math.max(target.height - element.height, 0));
         addElement(panel, target, element);
       }
       updatePanel();
@@ -265,7 +268,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                     type: "button",
                     onClick: _cache[0] || (_cache[0] = ($event) => moveSelectedElementsTo(unref(panel).pageHeader))
                   },
-                  toDisplayString(_ctx.i18n("handle.moveToPageHeader")),
+                  toDisplayString(unref(i18n)("handle.moveToPageHeader")),
                   1
                   /* TEXT */
                 )) : createCommentVNode("v-if", true),
@@ -276,7 +279,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                     type: "button",
                     onClick: _cache[1] || (_cache[1] = ($event) => moveSelectedElementsTo(unref(panel).pageFooter))
                   },
-                  toDisplayString(_ctx.i18n("handle.moveToPageFooter")),
+                  toDisplayString(unref(i18n)("handle.moveToPageFooter")),
                   1
                   /* TEXT */
                 )) : createCommentVNode("v-if", true)

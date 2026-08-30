@@ -6388,7 +6388,9 @@
           }
           previewWrapper.tableHeadList = [...tableHeadList];
           previewWrapper.statisticsList = [...tableStatisticsList];
+          const runtimeOptionParent = previewWrapper.runtimeOption.parent;
           previewWrapper.runtimeOption = utils.parse(utils.stringify(previewWrapper.runtimeOption, "parent"), {});
+          previewWrapper.runtimeOption.parent = runtimeOptionParent;
           previewWrapper.tableBodyList = [bodyList];
           previewWrapper.y = previewContext2.top + 1;
           await autoTableRow(previewContext2, previewDataList2, i);
@@ -6417,6 +6419,7 @@
       return false;
     }
     async function newPage() {
+      var _a, _b, _c;
       previewContext.currentPage = vue.reactive({
         id: utils.generateUUID(),
         width: previewContext.panel.width,
@@ -6432,11 +6435,17 @@
         let preview = previewContext.panel.pageHeader;
         previewContext.currentPage.previewWrapperList.push(preview);
         previewContext.top = await computeBottom(preview);
+        if (previewContext.top == null || !(previewContext.top > 0)) {
+          previewContext.top = numberUtil.sumScale((_a = preview.y) != null ? _a : 0, (_b = preview.height) != null ? _b : 0);
+        }
       }
       if (previewContext.panel.pageFooter) {
         let preview = previewContext.panel.pageFooter;
         previewContext.currentPage.previewWrapperList.push(preview);
         previewContext.bottom = await computeTop(preview);
+        if (previewContext.bottom == null || !(previewContext.bottom > 0)) {
+          previewContext.bottom = (_c = preview.y) != null ? _c : previewContext.panel.height;
+        }
       }
     }
     async function computeBottom(previewWrapper) {

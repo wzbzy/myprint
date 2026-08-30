@@ -1,4 +1,4 @@
-import { defineComponent, openBlock, createBlock, withCtx, createElementVNode, normalizeClass, unref, toDisplayString, createElementBlock, withModifiers, createCommentVNode, createVNode } from 'vue';
+import { defineComponent, openBlock, createBlock, withCtx, createElementVNode, normalizeClass, unref, toDisplayString, createElementBlock, createCommentVNode, createVNode } from 'vue';
 import ElementAlign from '../../content/toolbar/toolbar-style/element-align.vue.mjs';
 import MyScrollbar from '../scrollbar/my-scrollbar.vue.mjs';
 import MyPopover from '../popover/my-popover.vue.mjs';
@@ -58,6 +58,12 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
       emit("update:modelValue", null);
       emit("change", null);
     }
+    function wrapperClick(e) {
+      if (!props.disabled && e.target?.classList?.contains("my-select-clear")) {
+        e.stopPropagation();
+        clear();
+      }
+    }
     return (_ctx, _cache) => {
       return openBlock(), createBlock(MyPopover, {
         trigger: "click",
@@ -73,7 +79,8 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
               class: normalizeClass(["display-flex my-select", [{
                 "my-icon-disabled": __props.disabled,
                 "my-select-middle": __props.size == "middle"
-              }, "my-color-icon"]])
+              }, "my-color-icon"]]),
+              onClick: wrapperClick
             },
             [
               createElementVNode(
@@ -92,8 +99,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                 class: "my-select-clear",
                 role: "button",
                 "aria-label": unref(i18n)("common.clear"),
-                title: unref(i18n)("common.clear"),
-                onClick: withModifiers(clear, ["stop"])
+                title: unref(i18n)("common.clear")
               }, null, 8, _hoisted_1)) : createCommentVNode("v-if", true),
               createVNode(MyIcon, {
                 class: normalizeClass(["my-select-arrow my-style-font_arrow icon-jt-x iconfont my-icon-downList-arrow", [{

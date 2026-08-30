@@ -607,6 +607,7 @@ declare const _default: import("vue").DefineComponent<{}, {
             }>>;
             change: (val: any) => void;
             clear: () => void;
+            wrapperClick: (e: MouseEvent) => void;
             ElementAlign: import("vue").DefineComponent<import("vue").ExtractPropTypes<{
                 showSelectedStatus: {
                     type: BooleanConstructor;

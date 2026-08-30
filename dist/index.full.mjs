@@ -6416,7 +6416,9 @@ async function autoPage(previewEl, pageList, panel, previewDataList) {
         }
         previewWrapper.tableHeadList = [...tableHeadList];
         previewWrapper.statisticsList = [...tableStatisticsList];
+        const runtimeOptionParent = previewWrapper.runtimeOption.parent;
         previewWrapper.runtimeOption = parse$2(stringify$1(previewWrapper.runtimeOption, "parent"), {});
+        previewWrapper.runtimeOption.parent = runtimeOptionParent;
         previewWrapper.tableBodyList = [bodyList];
         previewWrapper.y = previewContext2.top + 1;
         await autoTableRow(previewContext2, previewDataList2, i);
@@ -6445,6 +6447,7 @@ async function autoPage(previewEl, pageList, panel, previewDataList) {
     return false;
   }
   async function newPage() {
+    var _a, _b, _c;
     previewContext.currentPage = reactive({
       id: generateUUID$1(),
       width: previewContext.panel.width,
@@ -6460,11 +6463,17 @@ async function autoPage(previewEl, pageList, panel, previewDataList) {
       let preview = previewContext.panel.pageHeader;
       previewContext.currentPage.previewWrapperList.push(preview);
       previewContext.top = await computeBottom(preview);
+      if (previewContext.top == null || !(previewContext.top > 0)) {
+        previewContext.top = numberUtil.sumScale((_a = preview.y) != null ? _a : 0, (_b = preview.height) != null ? _b : 0);
+      }
     }
     if (previewContext.panel.pageFooter) {
       let preview = previewContext.panel.pageFooter;
       previewContext.currentPage.previewWrapperList.push(preview);
       previewContext.bottom = await computeTop(preview);
+      if (previewContext.bottom == null || !(previewContext.bottom > 0)) {
+        previewContext.bottom = (_c = preview.y) != null ? _c : previewContext.panel.height;
+      }
     }
   }
   async function computeBottom(previewWrapper) {

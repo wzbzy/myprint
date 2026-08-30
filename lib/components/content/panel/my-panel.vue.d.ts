@@ -1,6 +1,7 @@
 import { Container, MyElement } from '..\..\../types/entity';
 import { Snapshot } from '..\..\../utils/historyUtil';
 import { valueUnit } from '..\..\../utils/elementUtil';
+import { i18n } from '..\..\../locales';
 declare const _default: import("vue").DefineComponent<{}, {
     panel: import("..\..\../types/entity").Panel;
     designContentRef: import("vue").Ref<any, any>;
@@ -6461,5 +6462,6 @@ declare const _default: import("vue").DefineComponent<{}, {
         disabled: boolean;
         focusBk: boolean;
     }, {}, {}, {}, string, import("vue").ComponentProvideOptions, true, {}, any>;
+    readonly i18n: typeof i18n;
 }, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").PublicProps, Readonly<{}> & Readonly<{}>, {}, {}, {}, {}, string, import("vue").ComponentProvideOptions, true, {}, any>;
 export default _default;

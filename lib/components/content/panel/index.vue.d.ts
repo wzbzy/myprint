@@ -8363,6 +8363,7 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
             disabled: boolean;
             focusBk: boolean;
         }, {}, {}, {}, string, import("vue").ComponentProvideOptions, true, {}, any>;
+        readonly i18n: typeof import("../../../locales/index").i18n;
     }, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").PublicProps, Readonly<{}> & Readonly<{}>, {}, {}, {}, {}, string, import("vue").ComponentProvideOptions, true, {}, any>;
     readonly handlePanelElementList: {
         setting: {
@@ -9587,6 +9588,7 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
                     }>>;
                     change: (val: any) => void;
                     clear: () => void;
+                    wrapperClick: (e: MouseEvent) => void;
                     ElementAlign: import("vue").DefineComponent<import("vue").ExtractPropTypes<{
                         showSelectedStatus: {
                             type: BooleanConstructor;
@@ -11355,6 +11357,7 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
                     }>>;
                     change: (val: any) => void;
                     clear: () => void;
+                    wrapperClick: (e: MouseEvent) => void;
                     ElementAlign: import("vue").DefineComponent<import("vue").ExtractPropTypes<{
                         showSelectedStatus: {
                             type: BooleanConstructor;
