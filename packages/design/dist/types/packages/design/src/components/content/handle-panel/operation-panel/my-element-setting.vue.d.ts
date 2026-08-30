@@ -30,6 +30,8 @@ declare const _default: import("vue").DefineComponent<{}, {
     element: import("vue").ComputedRef<MyElement>;
     noWorkInTableIs: import("vue").ComputedRef<boolean>;
     isPageContainer: import("vue").ComputedRef<boolean>;
+    showBatchMoveEntry: import("vue").ComputedRef<boolean>;
+    batchMoveToPageContainer: (key: 'pageHeader' | 'pageFooter') => void;
     includeProps: (props: string, attr: elementSettingType) => boolean;
     changeTableBodyHeight: (val: number) => void;
     changeOptionFixed: () => void;

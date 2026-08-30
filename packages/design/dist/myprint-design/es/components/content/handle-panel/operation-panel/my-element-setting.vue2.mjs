@@ -1,7 +1,7 @@
 import { defineComponent, openBlock, createBlock, withCtx, createVNode, createSlots, unref, createCommentVNode, createTextVNode, toDisplayString, normalizeClass, createElementVNode } from 'vue';
 import { getElementSetting, barcodeTypes, tableBodyHeightTypeList, textContentTypes, qrCodeErrorCorrectionLevel, dottedStyleList, displayStrategyList } from '../../../../constants/common.mjs';
 import '../../../my/input/index.mjs';
-import { multipleElementGetValue, multipleElementSetValue, setElementHeightPx, getPositionX, getPositionY } from '../../../../utils/elementUtil.mjs';
+import { multipleElementGetValue, getCurrentPanel, multipleElementSetValue, setElementHeightPx, getPositionX, getPositionY } from '../../../../utils/elementUtil.mjs';
 import MyDividerPanel from '../../../my/divider/my-divider-panel.vue.mjs';
 import MyFormItem from '../../../my/form/my-form-item.vue.mjs';
 import MyForm from '../../../my/form/my-form.vue.mjs';
@@ -19,6 +19,7 @@ import { computed } from 'vue-demi';
 import { mitt } from '../../../../utils/utils.mjs';
 import { removeCanSelectElement, addCanSelectElement, freshMoveableOption, moveableRotate, moveableMoveX, moveableMoveY, moveableResize } from '../../../../plugins/moveable/moveable.mjs';
 import { unit2px } from '../../../../utils/devicePixelRatio.mjs';
+import { getSelectedBodyElements, moveSelectedElementsTo } from '../../../../utils/batchMoveUtil.mjs';
 import MyRadio from '../../../my/radio/my-radio.vue.mjs';
 import MyHistoryInput from '../../../my/input/history-input.vue.mjs';
 import MyHistoryInputNumber from '../../../my/input/history-input-number.vue.mjs';
@@ -27,6 +28,10 @@ import MyHistorySelect from '../../../my/input/history-select.vue.mjs';
 
 const _hoisted_1 = { style: { "margin-left": "20px" } };
 const _hoisted_2 = { style: { "margin-left": "20px" } };
+const _hoisted_3 = {
+  class: "display-flex",
+  style: { "gap": "8px" }
+};
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "my-element-setting",
   setup(__props) {
@@ -51,6 +56,15 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
       const type = multipleElementGetValue("type");
       return type == "PageHeader" || type == "PageFooter";
     });
+    const showBatchMoveEntry = computed(() => {
+      if (isPageContainer.value || !noWorkInTableIs.value) {
+        return false;
+      }
+      return getSelectedBodyElements(getCurrentPanel()).length >= 1;
+    });
+    function batchMoveToPageContainer(key) {
+      moveSelectedElementsTo(getCurrentPanel(), key);
+    }
     function includeProps(props, attr) {
       return getElementSetting(multipleElementGetValue(props)).includes(attr);
     }
@@ -581,7 +595,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                         "model-value": unref(multipleElementGetValue)("option.padding.top"),
                         "onUpdate:modelValue": _cache[23] || (_cache[23] = (val) => unref(multipleElementSetValue)("option.padding.top", val))
                       }, {
-                        append: withCtx(() => [..._cache[35] || (_cache[35] = [
+                        append: withCtx(() => [..._cache[37] || (_cache[37] = [
                           createTextVNode(
                             "mm",
                             -1
@@ -598,7 +612,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                         "model-value": unref(multipleElementGetValue)("option.padding.bottom"),
                         "onUpdate:modelValue": _cache[24] || (_cache[24] = (val) => unref(multipleElementSetValue)("option.padding.bottom", val))
                       }, {
-                        append: withCtx(() => [..._cache[36] || (_cache[36] = [
+                        append: withCtx(() => [..._cache[38] || (_cache[38] = [
                           createTextVNode(
                             "mm",
                             -1
@@ -615,7 +629,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                         "model-value": unref(multipleElementGetValue)("option.padding.left"),
                         "onUpdate:modelValue": _cache[25] || (_cache[25] = (val) => unref(multipleElementSetValue)("option.padding.left", val))
                       }, {
-                        append: withCtx(() => [..._cache[37] || (_cache[37] = [
+                        append: withCtx(() => [..._cache[39] || (_cache[39] = [
                           createTextVNode(
                             "mm",
                             -1
@@ -632,7 +646,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                         "model-value": unref(multipleElementGetValue)("option.padding.right"),
                         "onUpdate:modelValue": _cache[26] || (_cache[26] = (val) => unref(multipleElementSetValue)("option.padding.right", val))
                       }, {
-                        append: withCtx(() => [..._cache[38] || (_cache[38] = [
+                        append: withCtx(() => [..._cache[40] || (_cache[40] = [
                           createTextVNode(
                             "mm",
                             -1
@@ -664,7 +678,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                         "model-value": unref(multipleElementGetValue)("option.margin.top"),
                         "onUpdate:modelValue": _cache[27] || (_cache[27] = (val) => unref(multipleElementSetValue)("option.margin.top", val))
                       }, {
-                        append: withCtx(() => [..._cache[39] || (_cache[39] = [
+                        append: withCtx(() => [..._cache[41] || (_cache[41] = [
                           createTextVNode(
                             "mm",
                             -1
@@ -681,7 +695,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                         "model-value": unref(multipleElementGetValue)("option.margin.bottom"),
                         "onUpdate:modelValue": _cache[28] || (_cache[28] = (val) => unref(multipleElementSetValue)("option.margin.bottom", val))
                       }, {
-                        append: withCtx(() => [..._cache[40] || (_cache[40] = [
+                        append: withCtx(() => [..._cache[42] || (_cache[42] = [
                           createTextVNode(
                             "mm",
                             -1
@@ -698,7 +712,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                         "model-value": unref(multipleElementGetValue)("option.margin.left"),
                         "onUpdate:modelValue": _cache[29] || (_cache[29] = (val) => unref(multipleElementSetValue)("option.margin.left", val))
                       }, {
-                        append: withCtx(() => [..._cache[41] || (_cache[41] = [
+                        append: withCtx(() => [..._cache[43] || (_cache[43] = [
                           createTextVNode(
                             "mm",
                             -1
@@ -715,7 +729,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                         "model-value": unref(multipleElementGetValue)("option.margin.right"),
                         "onUpdate:modelValue": _cache[30] || (_cache[30] = (val) => unref(multipleElementSetValue)("option.margin.right", val))
                       }, {
-                        append: withCtx(() => [..._cache[42] || (_cache[42] = [
+                        append: withCtx(() => [..._cache[44] || (_cache[44] = [
                           createTextVNode(
                             "mm",
                             -1
@@ -851,6 +865,55 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                 _: 1
                 /* STABLE */
               }, 8, ["label"])) : createCommentVNode("v-if", true)
+            ]),
+            _: 1
+            /* STABLE */
+          }),
+          createVNode(MyDividerPanel, null, {
+            divider: withCtx(() => [
+              createTextVNode(
+                toDisplayString(unref(i18n)("handle.moveToContainer")),
+                1
+                /* TEXT */
+              )
+            ]),
+            default: withCtx(() => [
+              unref(showBatchMoveEntry) ? (openBlock(), createBlock(MyFormItem, { key: 0 }, {
+                default: withCtx(() => [
+                  createElementVNode("div", _hoisted_3, [
+                    createVNode(MyButton, {
+                      size: "small",
+                      onClick: _cache[35] || (_cache[35] = ($event) => batchMoveToPageContainer("pageHeader"))
+                    }, {
+                      default: withCtx(() => [
+                        createTextVNode(
+                          toDisplayString(unref(i18n)("handle.moveToPageHeader")),
+                          1
+                          /* TEXT */
+                        )
+                      ]),
+                      _: 1
+                      /* STABLE */
+                    }),
+                    createVNode(MyButton, {
+                      size: "small",
+                      onClick: _cache[36] || (_cache[36] = ($event) => batchMoveToPageContainer("pageFooter"))
+                    }, {
+                      default: withCtx(() => [
+                        createTextVNode(
+                          toDisplayString(unref(i18n)("handle.moveToPageFooter")),
+                          1
+                          /* TEXT */
+                        )
+                      ]),
+                      _: 1
+                      /* STABLE */
+                    })
+                  ])
+                ]),
+                _: 1
+                /* STABLE */
+              })) : createCommentVNode("v-if", true)
             ]),
             _: 1
             /* STABLE */

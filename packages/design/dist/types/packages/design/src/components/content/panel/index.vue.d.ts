@@ -8115,7 +8115,6 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
         }[];
         showBatchMoveMenu: (event: MouseEvent) => void;
         closeBatchMoveMenu: () => void;
-        ensureBatchMoveTarget: (key: "pageHeader" | "pageFooter") => import("@myprint/design/types/entity").MyElement;
         moveSelectedElementsTo: (key: "pageHeader" | "pageFooter") => void;
         Rule: import("vue").DefineComponent<import("vue").ExtractPropTypes<{
             direction: {
@@ -9012,6 +9011,8 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
             element: import("vue").ComputedRef<import("@myprint/design/types/entity").MyElement>;
             noWorkInTableIs: import("vue").ComputedRef<boolean>;
             isPageContainer: import("vue").ComputedRef<boolean>;
+            showBatchMoveEntry: import("vue").ComputedRef<boolean>;
+            batchMoveToPageContainer: (key: "pageHeader" | "pageFooter") => void;
             includeProps: (props: string, attr: import("../../../constants/common").elementSettingType) => boolean;
             changeTableBodyHeight: (val: number) => void;
             changeOptionFixed: () => void;

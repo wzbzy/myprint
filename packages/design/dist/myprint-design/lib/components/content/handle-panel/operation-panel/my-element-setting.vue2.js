@@ -23,6 +23,7 @@ var vueDemi = require('vue-demi');
 var utils = require('../../../../utils/utils.js');
 var moveable = require('../../../../plugins/moveable/moveable.js');
 var devicePixelRatio = require('../../../../utils/devicePixelRatio.js');
+var batchMoveUtil = require('../../../../utils/batchMoveUtil.js');
 var myRadio = require('../../../my/radio/my-radio.vue.js');
 var historyInput = require('../../../my/input/history-input.vue.js');
 var historyInputNumber = require('../../../my/input/history-input-number.vue.js');
@@ -31,6 +32,10 @@ var historySelect = require('../../../my/input/history-select.vue.js');
 
 const _hoisted_1 = { style: { "margin-left": "20px" } };
 const _hoisted_2 = { style: { "margin-left": "20px" } };
+const _hoisted_3 = {
+  class: "display-flex",
+  style: { "gap": "8px" }
+};
 var _sfc_main = /* @__PURE__ */ vue.defineComponent({
   __name: "my-element-setting",
   setup(__props) {
@@ -55,6 +60,15 @@ var _sfc_main = /* @__PURE__ */ vue.defineComponent({
       const type = elementUtil.multipleElementGetValue("type");
       return type == "PageHeader" || type == "PageFooter";
     });
+    const showBatchMoveEntry = vueDemi.computed(() => {
+      if (isPageContainer.value || !noWorkInTableIs.value) {
+        return false;
+      }
+      return batchMoveUtil.getSelectedBodyElements(elementUtil.getCurrentPanel()).length >= 1;
+    });
+    function batchMoveToPageContainer(key) {
+      batchMoveUtil.moveSelectedElementsTo(elementUtil.getCurrentPanel(), key);
+    }
     function includeProps(props, attr) {
       return common.getElementSetting(elementUtil.multipleElementGetValue(props)).includes(attr);
     }
@@ -585,7 +599,7 @@ var _sfc_main = /* @__PURE__ */ vue.defineComponent({
                         "model-value": vue.unref(elementUtil.multipleElementGetValue)("option.padding.top"),
                         "onUpdate:modelValue": _cache[23] || (_cache[23] = (val) => vue.unref(elementUtil.multipleElementSetValue)("option.padding.top", val))
                       }, {
-                        append: vue.withCtx(() => [..._cache[35] || (_cache[35] = [
+                        append: vue.withCtx(() => [..._cache[37] || (_cache[37] = [
                           vue.createTextVNode(
                             "mm",
                             -1
@@ -602,7 +616,7 @@ var _sfc_main = /* @__PURE__ */ vue.defineComponent({
                         "model-value": vue.unref(elementUtil.multipleElementGetValue)("option.padding.bottom"),
                         "onUpdate:modelValue": _cache[24] || (_cache[24] = (val) => vue.unref(elementUtil.multipleElementSetValue)("option.padding.bottom", val))
                       }, {
-                        append: vue.withCtx(() => [..._cache[36] || (_cache[36] = [
+                        append: vue.withCtx(() => [..._cache[38] || (_cache[38] = [
                           vue.createTextVNode(
                             "mm",
                             -1
@@ -619,7 +633,7 @@ var _sfc_main = /* @__PURE__ */ vue.defineComponent({
                         "model-value": vue.unref(elementUtil.multipleElementGetValue)("option.padding.left"),
                         "onUpdate:modelValue": _cache[25] || (_cache[25] = (val) => vue.unref(elementUtil.multipleElementSetValue)("option.padding.left", val))
                       }, {
-                        append: vue.withCtx(() => [..._cache[37] || (_cache[37] = [
+                        append: vue.withCtx(() => [..._cache[39] || (_cache[39] = [
                           vue.createTextVNode(
                             "mm",
                             -1
@@ -636,7 +650,7 @@ var _sfc_main = /* @__PURE__ */ vue.defineComponent({
                         "model-value": vue.unref(elementUtil.multipleElementGetValue)("option.padding.right"),
                         "onUpdate:modelValue": _cache[26] || (_cache[26] = (val) => vue.unref(elementUtil.multipleElementSetValue)("option.padding.right", val))
                       }, {
-                        append: vue.withCtx(() => [..._cache[38] || (_cache[38] = [
+                        append: vue.withCtx(() => [..._cache[40] || (_cache[40] = [
                           vue.createTextVNode(
                             "mm",
                             -1
@@ -668,7 +682,7 @@ var _sfc_main = /* @__PURE__ */ vue.defineComponent({
                         "model-value": vue.unref(elementUtil.multipleElementGetValue)("option.margin.top"),
                         "onUpdate:modelValue": _cache[27] || (_cache[27] = (val) => vue.unref(elementUtil.multipleElementSetValue)("option.margin.top", val))
                       }, {
-                        append: vue.withCtx(() => [..._cache[39] || (_cache[39] = [
+                        append: vue.withCtx(() => [..._cache[41] || (_cache[41] = [
                           vue.createTextVNode(
                             "mm",
                             -1
@@ -685,7 +699,7 @@ var _sfc_main = /* @__PURE__ */ vue.defineComponent({
                         "model-value": vue.unref(elementUtil.multipleElementGetValue)("option.margin.bottom"),
                         "onUpdate:modelValue": _cache[28] || (_cache[28] = (val) => vue.unref(elementUtil.multipleElementSetValue)("option.margin.bottom", val))
                       }, {
-                        append: vue.withCtx(() => [..._cache[40] || (_cache[40] = [
+                        append: vue.withCtx(() => [..._cache[42] || (_cache[42] = [
                           vue.createTextVNode(
                             "mm",
                             -1
@@ -702,7 +716,7 @@ var _sfc_main = /* @__PURE__ */ vue.defineComponent({
                         "model-value": vue.unref(elementUtil.multipleElementGetValue)("option.margin.left"),
                         "onUpdate:modelValue": _cache[29] || (_cache[29] = (val) => vue.unref(elementUtil.multipleElementSetValue)("option.margin.left", val))
                       }, {
-                        append: vue.withCtx(() => [..._cache[41] || (_cache[41] = [
+                        append: vue.withCtx(() => [..._cache[43] || (_cache[43] = [
                           vue.createTextVNode(
                             "mm",
                             -1
@@ -719,7 +733,7 @@ var _sfc_main = /* @__PURE__ */ vue.defineComponent({
                         "model-value": vue.unref(elementUtil.multipleElementGetValue)("option.margin.right"),
                         "onUpdate:modelValue": _cache[30] || (_cache[30] = (val) => vue.unref(elementUtil.multipleElementSetValue)("option.margin.right", val))
                       }, {
-                        append: vue.withCtx(() => [..._cache[42] || (_cache[42] = [
+                        append: vue.withCtx(() => [..._cache[44] || (_cache[44] = [
                           vue.createTextVNode(
                             "mm",
                             -1
@@ -855,6 +869,55 @@ var _sfc_main = /* @__PURE__ */ vue.defineComponent({
                 _: 1
                 /* STABLE */
               }, 8, ["label"])) : vue.createCommentVNode("v-if", true)
+            ]),
+            _: 1
+            /* STABLE */
+          }),
+          vue.createVNode(myDividerPanel.default, null, {
+            divider: vue.withCtx(() => [
+              vue.createTextVNode(
+                vue.toDisplayString(vue.unref(index.i18n)("handle.moveToContainer")),
+                1
+                /* TEXT */
+              )
+            ]),
+            default: vue.withCtx(() => [
+              vue.unref(showBatchMoveEntry) ? (vue.openBlock(), vue.createBlock(myFormItem.default, { key: 0 }, {
+                default: vue.withCtx(() => [
+                  vue.createElementVNode("div", _hoisted_3, [
+                    vue.createVNode(myButton.default, {
+                      size: "small",
+                      onClick: _cache[35] || (_cache[35] = ($event) => batchMoveToPageContainer("pageHeader"))
+                    }, {
+                      default: vue.withCtx(() => [
+                        vue.createTextVNode(
+                          vue.toDisplayString(vue.unref(index.i18n)("handle.moveToPageHeader")),
+                          1
+                          /* TEXT */
+                        )
+                      ]),
+                      _: 1
+                      /* STABLE */
+                    }),
+                    vue.createVNode(myButton.default, {
+                      size: "small",
+                      onClick: _cache[36] || (_cache[36] = ($event) => batchMoveToPageContainer("pageFooter"))
+                    }, {
+                      default: vue.withCtx(() => [
+                        vue.createTextVNode(
+                          vue.toDisplayString(vue.unref(index.i18n)("handle.moveToPageFooter")),
+                          1
+                          /* TEXT */
+                        )
+                      ]),
+                      _: 1
+                      /* STABLE */
+                    })
+                  ])
+                ]),
+                _: 1
+                /* STABLE */
+              })) : vue.createCommentVNode("v-if", true)
             ]),
             _: 1
             /* STABLE */

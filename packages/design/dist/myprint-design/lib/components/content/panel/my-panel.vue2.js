@@ -8,7 +8,6 @@ var scaleUtil = require('../../../utils/scaleUtil.js');
 var vueDemi = require('vue-demi');
 var historyUtil = require('../../../utils/historyUtil.js');
 var elementUtil = require('../../../utils/elementUtil.js');
-var devicePixelRatio = require('../../../utils/devicePixelRatio.js');
 var app = require('../../../stores/app.js');
 var elementList = require('../../design/element-list.vue.js');
 var keyboardUtil = require('../../../utils/keyboardUtil.js');
@@ -19,6 +18,7 @@ var auxiliaryLine = require('../../design/auxiliary/auxiliary-line.vue.js');
 var myIcon = require('../../my/icon/my-icon.vue.js');
 var index = require('../../../locales/index.js');
 var utils = require('../../../utils/utils.js');
+var batchMoveUtil = require('../../../utils/batchMoveUtil.js');
 
 const _hoisted_1 = { class: "design-panel user-select-none" };
 const _hoisted_2 = { class: "display-flex" };
@@ -160,52 +160,9 @@ var _sfc_main = /* @__PURE__ */ vue.defineComponent({
     function closeBatchMoveMenu() {
       batchMoveMenu.visible = false;
     }
-    function ensureBatchMoveTarget(key) {
-      const existing = panel[key];
-      if (existing != null) {
-        return existing;
-      }
-      const container = {
-        id: utils.generateUUID(),
-        // 元素类型全库约定为首字母大写（'PageHeader'/'PageFooter'），key 只是属性名
-        type: key == "pageHeader" ? "PageHeader" : "PageFooter",
-        option: { fixed: true },
-        height: 30
-      };
-      elementUtil.initElement(panel, container, 0);
-      container.width = panel.width;
-      container.x = 0;
-      container.y = key == "pageHeader" ? 0 : panel.height - container.height;
-      container.runtimeOption.width = devicePixelRatio.unit2px(panel.width);
-      container.runtimeOption.x = 0;
-      container.runtimeOption.y = devicePixelRatio.unit2px(container.y);
-      panel[key] = container;
-      elementUtil.installParentElement(panel, container);
-      return container;
-    }
     function moveSelectedElementsTo(key) {
-      const target = ensureBatchMoveTarget(key);
-      const selectedElements = getSelectedPanelElements();
       batchMoveMenu.visible = false;
-      if (selectedElements.length < 1) {
-        return;
-      }
-      for (let element of selectedElements) {
-        delete element.option.fixed;
-        delete element.option.displayStrategy;
-        elementUtil.removeElement(element);
-        element.x -= target.x;
-        element.y -= target.y;
-        element.x = Math.min(Math.max(element.x, 0), Math.max(target.width - element.width, 0));
-        element.y = Math.min(Math.max(element.y, 0), Math.max(target.height - element.height, 0));
-        elementUtil.addElement(panel, target, element);
-      }
-      moveable.updatePanel();
-      historyUtil.record({
-        type: "PANEL",
-        action: historyUtil.ActionEnum.BATCH_MOVE,
-        elementList: selectedElements
-      });
+      batchMoveUtil.moveSelectedElementsTo(panel, key);
     }
     return (_ctx, _cache) => {
       return vue.openBlock(), vue.createElementBlock("div", _hoisted_1, [

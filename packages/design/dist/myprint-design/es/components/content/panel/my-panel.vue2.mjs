@@ -2,9 +2,8 @@ import { defineComponent, openBlock, createElementBlock, createElementVNode, cre
 import Rule from '../../my/rule/rule.vue.mjs';
 import { scaleUtil } from '../../../utils/scaleUtil.mjs';
 import { ref, reactive, onMounted, nextTick, onUnmounted } from 'vue-demi';
-import { record, ActionEnum } from '../../../utils/historyUtil.mjs';
-import { getCurrentPanel, none, handle, initElement, installParentElement, removeElement, addElement, valueUnit } from '../../../utils/elementUtil.mjs';
-import { unit2px } from '../../../utils/devicePixelRatio.mjs';
+import { record } from '../../../utils/historyUtil.mjs';
+import { getCurrentPanel, none, handle, valueUnit } from '../../../utils/elementUtil.mjs';
 import { useAppStoreHook } from '../../../stores/app.mjs';
 import ElementList from '../../design/element-list.vue.mjs';
 import { mountedKeyboardEvent, unMountedKeyboardEvent } from '../../../utils/keyboardUtil.mjs';
@@ -14,7 +13,8 @@ import { initSelecto, selecto } from '../../../plugins/moveable/selecto.mjs';
 import AuxiliaryLine from '../../design/auxiliary/auxiliary-line.vue.mjs';
 import MyIcon from '../../my/icon/my-icon.vue.mjs';
 import { i18n } from '../../../locales/index.mjs';
-import { mitt, generateUUID } from '../../../utils/utils.mjs';
+import { mitt } from '../../../utils/utils.mjs';
+import { moveSelectedElementsTo } from '../../../utils/batchMoveUtil.mjs';
 
 const _hoisted_1 = { class: "design-panel user-select-none" };
 const _hoisted_2 = { class: "display-flex" };
@@ -156,52 +156,9 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     function closeBatchMoveMenu() {
       batchMoveMenu.visible = false;
     }
-    function ensureBatchMoveTarget(key) {
-      const existing = panel[key];
-      if (existing != null) {
-        return existing;
-      }
-      const container = {
-        id: generateUUID(),
-        // 元素类型全库约定为首字母大写（'PageHeader'/'PageFooter'），key 只是属性名
-        type: key == "pageHeader" ? "PageHeader" : "PageFooter",
-        option: { fixed: true },
-        height: 30
-      };
-      initElement(panel, container, 0);
-      container.width = panel.width;
-      container.x = 0;
-      container.y = key == "pageHeader" ? 0 : panel.height - container.height;
-      container.runtimeOption.width = unit2px(panel.width);
-      container.runtimeOption.x = 0;
-      container.runtimeOption.y = unit2px(container.y);
-      panel[key] = container;
-      installParentElement(panel, container);
-      return container;
-    }
-    function moveSelectedElementsTo(key) {
-      const target = ensureBatchMoveTarget(key);
-      const selectedElements = getSelectedPanelElements();
+    function moveSelectedElementsTo$1(key) {
       batchMoveMenu.visible = false;
-      if (selectedElements.length < 1) {
-        return;
-      }
-      for (let element of selectedElements) {
-        delete element.option.fixed;
-        delete element.option.displayStrategy;
-        removeElement(element);
-        element.x -= target.x;
-        element.y -= target.y;
-        element.x = Math.min(Math.max(element.x, 0), Math.max(target.width - element.width, 0));
-        element.y = Math.min(Math.max(element.y, 0), Math.max(target.height - element.height, 0));
-        addElement(panel, target, element);
-      }
-      updatePanel();
-      record({
-        type: "PANEL",
-        action: ActionEnum.BATCH_MOVE,
-        elementList: selectedElements
-      });
+      moveSelectedElementsTo(panel, key);
     }
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock("div", _hoisted_1, [
@@ -290,7 +247,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                   "button",
                   {
                     type: "button",
-                    onClick: _cache[0] || (_cache[0] = ($event) => moveSelectedElementsTo("pageHeader"))
+                    onClick: _cache[0] || (_cache[0] = ($event) => moveSelectedElementsTo$1("pageHeader"))
                   },
                   toDisplayString(unref(i18n)("handle.moveToPageHeader")),
                   1
@@ -300,7 +257,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                   "button",
                   {
                     type: "button",
-                    onClick: _cache[1] || (_cache[1] = ($event) => moveSelectedElementsTo("pageFooter"))
+                    onClick: _cache[1] || (_cache[1] = ($event) => moveSelectedElementsTo$1("pageFooter"))
                   },
                   toDisplayString(unref(i18n)("handle.moveToPageFooter")),
                   1

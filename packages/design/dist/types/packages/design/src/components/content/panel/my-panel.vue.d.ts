@@ -6214,7 +6214,6 @@ declare const _default: import("vue").DefineComponent<{}, {
     }[];
     showBatchMoveMenu: (event: MouseEvent) => void;
     closeBatchMoveMenu: () => void;
-    ensureBatchMoveTarget: (key: 'pageHeader' | 'pageFooter') => MyElement;
     moveSelectedElementsTo: (key: 'pageHeader' | 'pageFooter') => void;
     Rule: import("vue").DefineComponent<import("vue").ExtractPropTypes<{
         direction: {

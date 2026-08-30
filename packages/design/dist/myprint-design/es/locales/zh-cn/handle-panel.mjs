@@ -43,6 +43,7 @@ var handelPanel = {
   "handle.display.strategy": "\u663E\u793A\u7B56\u7565",
   "handle.moveToPageHeader": "\u79FB\u5165\u9875\u7709",
   "handle.moveToPageFooter": "\u79FB\u5165\u9875\u811A",
+  "handle.moveToContainer": "\u79FB\u5165\u9875\u7709\u9875\u811A",
   "handle.height.attr": "\u9AD8\u5EA6\u5C5E\u6027",
   "handle.table.hidden.head": "\u9690\u85CF\u8868\u5934",
   "handle.table.page.head": "\u5206\u9875\u8868\u5934",

@@ -106,6 +106,7 @@ declare const _default: {
     'handle.display.strategy': string;
     'handle.moveToPageHeader': string;
     'handle.moveToPageFooter': string;
+    'handle.moveToContainer': string;
     'handle.height.attr': string;
     'handle.table.hidden.head': string;
     'handle.table.page.head': string;
