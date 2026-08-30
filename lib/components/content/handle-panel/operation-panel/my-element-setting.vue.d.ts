@@ -29,6 +29,7 @@ declare const _default: import("vue").DefineComponent<{}, {
     currentBarCodeEg: import("vue").ComputedRef<string>;
     element: import("vue").ComputedRef<MyElement>;
     noWorkInTableIs: import("vue").ComputedRef<boolean>;
+    isPageContainer: import("vue").ComputedRef<boolean>;
     includeProps: (props: string, attr: elementSettingType) => boolean;
     changeTableBodyHeight: (val: number) => void;
     changeOptionFixed: () => void;

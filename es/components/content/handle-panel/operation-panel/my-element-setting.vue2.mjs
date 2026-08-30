@@ -47,6 +47,10 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
       const workEnvironment = multipleElementGetValue("runtimeOption.workEnvironment");
       return workEnvironment != "DataTable";
     });
+    const isPageContainer = computed(() => {
+      const type = multipleElementGetValue("type");
+      return type == "PageHeader" || type == "PageFooter";
+    });
     function includeProps(props, attr) {
       return getElementSetting(multipleElementGetValue(props)).includes(attr);
     }
@@ -729,7 +733,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                 _: 1
                 /* STABLE */
               }, 8, ["label"])) : createCommentVNode("v-if", true),
-              unref(multipleElementGetValue)("type") != "DataTable" && unref(noWorkInTableIs) ? (openBlock(), createBlock(MyFormItem, {
+              unref(isPageContainer) ? (openBlock(), createBlock(MyFormItem, {
                 key: 12,
                 label: unref(i18n)("handle.fixed.position")
               }, {
@@ -831,7 +835,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
               )
             ]),
             default: withCtx(() => [
-              unref(multipleElementGetValue)("option.fixed") ? (openBlock(), createBlock(MyFormItem, {
+              unref(isPageContainer) && unref(multipleElementGetValue)("option.fixed") ? (openBlock(), createBlock(MyFormItem, {
                 key: 0,
                 label: unref(i18n)("handle.display.strategy")
               }, {

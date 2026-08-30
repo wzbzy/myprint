@@ -146,7 +146,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     }
     function showBatchMoveMenu(event) {
       const selectedElements = getSelectedPanelElements();
-      if (selectedElements.length < 2) {
+      if (selectedElements.length < 1) {
         return;
       }
       batchMoveMenu.visible = true;
@@ -163,7 +163,8 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
       }
       const container = {
         id: generateUUID(),
-        type: key,
+        // 元素类型全库约定为首字母大写（'PageHeader'/'PageFooter'），key 只是属性名
+        type: key == "pageHeader" ? "PageHeader" : "PageFooter",
         option: { fixed: true },
         height: 30
       };
@@ -182,7 +183,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
       const target = ensureBatchMoveTarget(key);
       const selectedElements = getSelectedPanelElements();
       batchMoveMenu.visible = false;
-      if (selectedElements.length < 2) {
+      if (selectedElements.length < 1) {
         return;
       }
       for (let element of selectedElements) {
