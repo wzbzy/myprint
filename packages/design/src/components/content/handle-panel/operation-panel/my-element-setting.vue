@@ -389,8 +389,10 @@
             <my-form-item :label="i18n('handle.display.strategy')"
                           v-if="isPageContainer && multipleElementGetValue('option.fixed')">
                 <!-- 容器未设置 displayStrategy 即每页显示；下拉补「每页显示」选项并作为默认回显，
-                     避免用户想选每页却误选「不显示」导致整容器打印时不渲染（bomdayin 页脚事故） -->
-                <my-history-select :model-value="multipleElementGetValue('option.displayStrategy') || ''"
+                     避免用户想选每页却误选「不显示」导致整容器打印时不渲染（bomdayin 页脚事故）。
+                     my-select 对空值(falsy)统一显示 placeholder，所以「每页显示」用哨兵值 'everyPage'，
+                     changeDisplayStrategy 里映射回 delete -->
+                <my-history-select :model-value="multipleElementGetValue('option.displayStrategy') || 'everyPage'"
                                    @update:model-value="changeDisplayStrategy"
                                    class="width-120"
                                    :data-list="containerDisplayStrategyList"
@@ -496,9 +498,10 @@ const isPageContainer = computed(() => {
 
 // 容器的显示策略下拉：原生列表只有 不显示/首页/尾页/奇数/偶数，「每页」要靠清空值（没有入口），
 // 用户想选每页时只能误选「不显示」→ 打印时整容器被 autoPage 跳过（bomdayin 页脚事故）。
-// 首位补「每页显示」（value ''，changeDisplayStrategy 对空值执行 delete 即回到每页语义）
+// 首位补「每页显示」：my-select 对 falsy 值显示 placeholder，故用哨兵值 'everyPage'，
+// changeDisplayStrategy 里映射回 delete（删除 option.displayStrategy 即每页语义）
 const containerDisplayStrategyList = [
-    { label: i18n('handle.display.everyPage'), value: '' },
+    { label: i18n('handle.display.everyPage'), value: 'everyPage' },
     ...displayStrategyList
 ];
 
@@ -543,7 +546,8 @@ function changeOptionFixed() {
 
 function changeDisplayStrategy(val: any) {
     for (let currentElement of appStore.currentElement) {
-        if (!val) {
+        // 「每页显示」哨兵值 → 删除字段回到 autoPage 默认每页语义
+        if (!val || val == 'everyPage') {
             delete currentElement.option.displayStrategy;
             continue;
         }
