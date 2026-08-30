@@ -396,7 +396,25 @@
             </my-form-item>
         
         </my-divider-panel>
-    
+
+        <my-divider-panel>
+            <template #divider>
+                {{ i18n('handle.moveToContainer') }}
+            </template>
+
+            <!-- 框选/单选正文元素后，把选中元素移入页眉/页脚（容器缺失自动创建）；右键菜单之外的稳定入口 -->
+            <my-form-item v-if="showBatchMoveEntry">
+                <div class="display-flex" style="gap: 8px">
+                    <my-button size="small" @click="batchMoveToPageContainer('pageHeader')">
+                        {{ i18n('handle.moveToPageHeader') }}
+                    </my-button>
+                    <my-button size="small" @click="batchMoveToPageContainer('pageFooter')">
+                        {{ i18n('handle.moveToPageFooter') }}
+                    </my-button>
+                </div>
+            </my-form-item>
+        </my-divider-panel>
+
     </my-form>
 
 </template>
@@ -441,6 +459,8 @@ import {
     removeCanSelectElement
 } from '@myprint/design/plugins/moveable/moveable';
 import { unit2px } from '@myprint/design/utils/devicePixelRatio';
+import { getCurrentPanel } from '@myprint/design/utils/elementUtil';
+import { getSelectedBodyElements, moveSelectedElementsTo } from '@myprint/design/utils/batchMoveUtil';
 import MyRadio from '@myprint/design/components/my/radio/my-radio.vue';
 
 const appStore = useAppStoreHook();
@@ -471,6 +491,18 @@ const isPageContainer = computed(() => {
     const type = multipleElementGetValue('type');
     return type == 'PageHeader' || type == 'PageFooter';
 });
+
+// 选中正文元素（≥1 个、非容器本身、非表格内）时显示「移入页眉/页脚」入口
+const showBatchMoveEntry = computed(() => {
+    if (isPageContainer.value || !noWorkInTableIs.value) {
+        return false;
+    }
+    return getSelectedBodyElements(getCurrentPanel()).length >= 1;
+});
+
+function batchMoveToPageContainer(key: 'pageHeader' | 'pageFooter') {
+    moveSelectedElementsTo(getCurrentPanel(), key);
+}
 
 function includeProps(props: string, attr: elementSettingType) {
     //  'borderRadius'

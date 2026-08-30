@@ -40,6 +40,7 @@ export default {
     'handle.display.strategy': 'Display Strategy',
     'handle.moveToPageHeader': 'Move to Header',
     'handle.moveToPageFooter': 'Move to Footer',
+    'handle.moveToContainer': 'Move to Header/Footer',
     'handle.height.attr': 'Height Attribute',
     'handle.table.page.head': 'Table Page Header',
     'handle.add.statistics.row': 'Add Statistics Row',

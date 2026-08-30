@@ -67,10 +67,9 @@
 import Rule from '@myprint/design/components/my/rule/rule.vue';
 import { scaleUtil } from '@myprint/design/utils/scaleUtil';
 import { nextTick, onMounted, onUnmounted, reactive, ref } from 'vue-demi';
-import { Container, ContentScaleVo, ElementOption, MyElement } from '@myprint/design/types/entity';
-import { ActionEnum, record, Snapshot } from '@myprint/design/utils/historyUtil';
-import { addElement, getCurrentPanel, handle, initElement, installParentElement, none, removeElement, valueUnit } from '@myprint/design/utils/elementUtil';
-import { unit2px } from '@myprint/design/utils/devicePixelRatio';
+import { Container, ContentScaleVo, MyElement } from '@myprint/design/types/entity';
+import { record, Snapshot } from '@myprint/design/utils/historyUtil';
+import { getCurrentPanel, handle, none, valueUnit } from '@myprint/design/utils/elementUtil';
 import { useAppStoreHook as useAppStore } from '@myprint/design/stores/app';
 import ElementList from '@myprint/design/components/design/element-list.vue';
 import { mountedKeyboardEvent, unMountedKeyboardEvent } from '@myprint/design/utils/keyboardUtil';
@@ -80,7 +79,8 @@ import { initSelecto, selecto } from '@myprint/design/plugins/moveable/selecto';
 import AuxiliaryLine from '@myprint/design/components/design/auxiliary/auxiliary-line.vue';
 import MyIcon from '@myprint/design/components/my/icon/my-icon.vue';
 import { i18n } from '@myprint/design/locales';
-import { generateUUID, mitt } from '@myprint/design/utils/utils';
+import { mitt } from '@myprint/design/utils/utils';
+import { moveSelectedElementsTo as moveSelectedBodyElementsTo } from '@myprint/design/utils/batchMoveUtil';
 
 const panel = getCurrentPanel();
 const designContentRef = ref<InstanceType<any>>();
@@ -259,58 +259,8 @@ function closeBatchMoveMenu() {
     batchMoveMenu.visible = false;
 }
 
-// 模板未带页眉/页脚时按工具箱拖入的同样默认值自动创建（fixed=true 每页重复），
-// 几何与挂载方式与 base-widget.vue 的拖入路径保持一致
-function ensureBatchMoveTarget(key: 'pageHeader' | 'pageFooter'): MyElement {
-    const existing = panel[key] as unknown as MyElement | undefined;
-    if (existing != null) {
-        return existing;
-    }
-    const container = {
-        id: generateUUID(),
-        // 元素类型全库约定为首字母大写（'PageHeader'/'PageFooter'），key 只是属性名
-        type: key == 'pageHeader' ? 'PageHeader' : 'PageFooter',
-        option: { fixed: true } as ElementOption,
-        height: 30
-    } as unknown as MyElement;
-    initElement(panel, container, 0);
-    container.width = panel.width;
-    container.x = 0;
-    container.y = key == 'pageHeader' ? 0 : panel.height - container.height;
-    container.runtimeOption.width = unit2px(panel.width);
-    container.runtimeOption.x = 0;
-    container.runtimeOption.y = unit2px(container.y);
-    panel[key] = container as any;
-    installParentElement(panel, container);
-    return container;
-}
-
 function moveSelectedElementsTo(key: 'pageHeader' | 'pageFooter') {
-    const target = ensureBatchMoveTarget(key);
-    const selectedElements = getSelectedPanelElements();
-
     batchMoveMenu.visible = false;
-    if (selectedElements.length < 1) {
-        return;
-    }
-
-    for (let element of selectedElements) {
-        delete element.option.fixed;
-        delete element.option.displayStrategy;
-        removeElement(element);
-        element.x -= target.x;
-        element.y -= target.y;
-        // 批量移入时元素可能来自正文任意位置，相对坐标为负或越界，钳制在容器内
-        element.x = Math.min(Math.max(element.x, 0), Math.max(target.width - element.width, 0));
-        element.y = Math.min(Math.max(element.y, 0), Math.max(target.height - element.height, 0));
-        addElement(panel, target, element);
-    }
-
-    updatePanel();
-    record({
-        type: 'PANEL',
-        action: ActionEnum.BATCH_MOVE,
-        elementList: selectedElements
-    });
+    moveSelectedBodyElementsTo(panel, key);
 }
 </script>
