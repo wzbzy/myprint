@@ -14,7 +14,7 @@ import AuxiliaryLine from '../../design/auxiliary/auxiliary-line.vue.mjs';
 import MyIcon from '../../my/icon/my-icon.vue.mjs';
 import { i18n } from '../../../locales/index.mjs';
 import { mitt } from '../../../utils/utils.mjs';
-import { moveSelectedElementsTo } from '../../../utils/batchMoveUtil.mjs';
+import { getSelectedBodyElements, moveSelectedElementsTo } from '../../../utils/batchMoveUtil.mjs';
 
 const _hoisted_1 = { class: "design-panel user-select-none" };
 const _hoisted_2 = { class: "display-flex" };
@@ -139,13 +139,8 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
         none(valueElement);
       }
     }
-    function getSelectedPanelElements() {
-      return appStore.currentElement.filter(
-        (element) => element.runtimeOption.parent === panel && element.type != "PageHeader" && element.type != "PageFooter"
-      );
-    }
     function showBatchMoveMenu(event) {
-      const selectedElements = getSelectedPanelElements();
+      const selectedElements = getSelectedBodyElements(panel);
       if (selectedElements.length < 1) {
         return;
       }
