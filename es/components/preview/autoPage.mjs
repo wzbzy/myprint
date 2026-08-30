@@ -332,7 +332,12 @@ async function autoPage(previewEl, pageList, panel, previewDataList) {
         }
         previewWrapper.tableHeadList = [...tableHeadList];
         previewWrapper.statisticsList = [...tableStatisticsList];
+        // [PATCH] stringify(.., "parent") 会把 runtimeOption.parent 一并剥掉，
+        // 渲染层 getPositionX/Y 读 parent.x/.y 时对 undefined 取值抛错 → 续页表格 style 全空顶到页顶。
+        // 重置前留住 parent 引用，重置后挂回去。
+        const runtimeOptionParent = previewWrapper.runtimeOption.parent;
         previewWrapper.runtimeOption = parse(stringify(previewWrapper.runtimeOption, "parent"), {});
+        previewWrapper.runtimeOption.parent = runtimeOptionParent;
         previewWrapper.tableBodyList = [bodyList];
         previewWrapper.y = previewContext2.top + 1;
         await autoTableRow(previewContext2, previewDataList2, i);
@@ -375,12 +380,21 @@ async function autoPage(previewEl, pageList, panel, previewDataList) {
     if (previewContext.panel.pageHeader) {
       let preview = previewContext.panel.pageHeader;
       previewContext.currentPage.previewWrapperList.push(preview);
+      // [PATCH] fixed 页眉的子元素回填晚于 newPage，此处渲染的是空容器（高度≈0），
+      // computeBottom 返回 ≈0 会让续页表格顶到页顶与页眉重叠——测得值无效时用模板静态几何兜底
       previewContext.top = await computeBottom(preview);
+      if (previewContext.top == null || !(previewContext.top > 0)) {
+        previewContext.top = MathCalc.sumScale(preview.y ?? 0, preview.height ?? 0);
+      }
     }
     if (previewContext.panel.pageFooter) {
       let preview = previewContext.panel.pageFooter;
       previewContext.currentPage.previewWrapperList.push(preview);
+      // [PATCH] 同上：页脚未渲染时用其 y（页脚顶部）作为页面可用底边
       previewContext.bottom = await computeTop(preview);
+      if (previewContext.bottom == null || !(previewContext.bottom > 0)) {
+        previewContext.bottom = preview.y ?? previewContext.panel.height;
+      }
     }
   }
   async function computeBottom(previewWrapper) {
