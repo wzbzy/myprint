@@ -1,0 +1,34 @@
+import { reactive } from 'vue-demi';
+import { i18n } from '../locales/index.mjs';
+
+const handlePanelElementList = reactive({
+  "setting": {
+    icon: "icon-setting",
+    label: i18n("common.setting"),
+    visible: false
+  },
+  "operation": {
+    icon: "icon-operation",
+    label: i18n("common.attr"),
+    visible: false
+  },
+  "history": {
+    icon: "icon-history",
+    label: i18n("common.operation.history"),
+    visible: false
+  }
+  // 'elementList': {
+  //     icon: 'icon-element-list',
+  //     right: 20, y: 660, width: 200, height: 200,
+  //     label: '历史操作',
+  //     visible: false,
+  // } as HandlePanel
+});
+const miniMap = {
+  // icon: 'icon-history',
+  label: i18n("common.mini.map"),
+  visible: false
+};
+
+export { handlePanelElementList, miniMap };
+//# sourceMappingURL=settingPanel.mjs.map

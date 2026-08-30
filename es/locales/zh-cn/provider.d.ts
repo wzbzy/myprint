@@ -1,0 +1,26 @@
+declare const _default: {
+    'provider.text.default.data': string;
+    'provider.panel': string;
+    'provider.text': string;
+    'provider.text.time': string;
+    'provider.image': string;
+    'provider.data.table': string;
+    'provider.free.table': string;
+    'provider.rect': string;
+    'provider.horizontal.line': string;
+    'provider.dotted.horizontal.line': string;
+    'provider.vertical.line': string;
+    'provider.dotted.vertical.line': string;
+    'provider.container': string;
+    'provider.page.header': string;
+    'provider.page.footer': string;
+    'provider.page.num': string;
+    'provider.svg.polygon line': string;
+    'provider.svg.line': string;
+    'provider.svg.bezier.curve': string;
+    'provider.svg.bezier.curve.three': string;
+    'provider.svg.circle': string;
+    'provider.svg.ellipse': string;
+    'provider.draw.panel': string;
+};
+export default _default;

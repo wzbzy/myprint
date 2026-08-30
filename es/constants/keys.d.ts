@@ -1,0 +1,11 @@
+import { InjectionKey, Ref } from 'vue-demi';
+import { DesignPanelProps, MyElement, Panel, Provider } from '../types/entity';
+import { EventTypes } from '../types/eventType';
+import { Emitter } from 'mitt';
+export declare const designPropsKey: InjectionKey<DesignPanelProps>;
+export declare const mittKey: InjectionKey<Emitter<EventTypes>>;
+export declare const providerKey: InjectionKey<Ref<Provider>>;
+export declare const panelKey: InjectionKey<Panel>;
+export declare const previewDataKey: InjectionKey<Ref<any[]>>;
+export declare const messageFun: InjectionKey<Ref<Function>>;
+export declare const selectElementKey: InjectionKey<Ref<MyElement>>;

@@ -1,0 +1,22 @@
+import { App } from 'vue-demi';
+import { MyPrintConfig, PrintResult, PrintOptions } from './types/entity';
+export declare const myPrintOptions: MyPrintConfig;
+export declare function installPrinter(app: App<any>): void;
+export declare const MyPrinter: {
+    initMyPrinter(options: MyPrintConfig): void;
+    setLocale<T extends "zhCn" | "enUs">(locale: T): void;
+    setClientUrl(clientUrl: string): void;
+    setServerUrl(serverUrl: string): void;
+    clientConnectIs(): boolean;
+    getPrinterList(): import("./types/entity").Printer[];
+    getDefaultPrinter(): import("./types/entity").Printer;
+    asyncGetPrinterList(): Promise<import("./types/entity").Printer[]>;
+    chromePreview(printProps: PrintOptions): Promise<PrintResult>;
+    chromePrinter(printProps: PrintOptions): Promise<PrintResult>;
+    clientPrinter(printProps: PrintOptions): Promise<PrintResult>;
+    pdfChrome(printProps: PrintOptions): Promise<PrintResult>;
+    pdfClient(printProps: PrintOptions): Promise<PrintResult>;
+    pdfServer(printProps: PrintOptions): Promise<PrintResult>;
+    imgChrome(printProps: PrintOptions): Promise<PrintResult>;
+    imgServer(printProps: PrintOptions): Promise<PrintResult>;
+};

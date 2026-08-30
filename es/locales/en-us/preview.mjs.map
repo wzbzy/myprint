@@ -1,0 +1,1 @@
+{"version":3,"file":"preview.mjs","sources":["../../../../../src/locales/en-us/preview.ts"],"sourcesContent":["export default {\r\n    'preview.download.pdf': 'Download PDF'\r\n};\r\n"],"names":[],"mappings":"AAAA,cAAe;AAAA,EACX,sBAAwB,EAAA,cAAA;AAC5B,CAAA;;;;"}
