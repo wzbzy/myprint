@@ -39,12 +39,12 @@
                 <div class="design-context-menu"
                      :style="{ left: batchMoveMenu.x + 'px', top: batchMoveMenu.y + 'px' }"
                      @click.stop>
-                    <button v-if="panel.pageHeader" type="button"
-                            @click="moveSelectedElementsTo(panel.pageHeader)">
+                    <button type="button"
+                            @click="moveSelectedElementsTo('pageHeader')">
                         {{ i18n('handle.moveToPageHeader') }}
                     </button>
-                    <button v-if="panel.pageFooter" type="button"
-                            @click="moveSelectedElementsTo(panel.pageFooter)">
+                    <button type="button"
+                            @click="moveSelectedElementsTo('pageFooter')">
                         {{ i18n('handle.moveToPageFooter') }}
                     </button>
                 </div>
@@ -67,9 +67,10 @@
 import Rule from '@myprint/design/components/my/rule/rule.vue';
 import { scaleUtil } from '@myprint/design/utils/scaleUtil';
 import { nextTick, onMounted, onUnmounted, reactive, ref } from 'vue-demi';
-import { Container, ContentScaleVo, MyElement } from '@myprint/design/types/entity';
+import { Container, ContentScaleVo, ElementOption, MyElement } from '@myprint/design/types/entity';
 import { ActionEnum, record, Snapshot } from '@myprint/design/utils/historyUtil';
-import { addElement, getCurrentPanel, handle, none, removeElement, valueUnit } from '@myprint/design/utils/elementUtil';
+import { addElement, getCurrentPanel, handle, initElement, installParentElement, none, removeElement, valueUnit } from '@myprint/design/utils/elementUtil';
+import { unit2px } from '@myprint/design/utils/devicePixelRatio';
 import { useAppStoreHook as useAppStore } from '@myprint/design/stores/app';
 import ElementList from '@myprint/design/components/design/element-list.vue';
 import { mountedKeyboardEvent, unMountedKeyboardEvent } from '@myprint/design/utils/keyboardUtil';
@@ -79,7 +80,7 @@ import { initSelecto, selecto } from '@myprint/design/plugins/moveable/selecto';
 import AuxiliaryLine from '@myprint/design/components/design/auxiliary/auxiliary-line.vue';
 import MyIcon from '@myprint/design/components/my/icon/my-icon.vue';
 import { i18n } from '@myprint/design/locales';
-import { mitt } from '@myprint/design/utils/utils';
+import { generateUUID, mitt } from '@myprint/design/utils/utils';
 
 const panel = getCurrentPanel();
 const designContentRef = ref<InstanceType<any>>();
@@ -243,7 +244,8 @@ function getSelectedPanelElements() {
 function showBatchMoveMenu(event: MouseEvent) {
     const selectedElements = getSelectedPanelElements();
 
-    if (selectedElements.length < 2 || (!panel.pageHeader && !panel.pageFooter)) {
+    // 页眉/页脚容器不存在时菜单仍显示，移入时自动创建（存量模板大多没拖过页眉页脚）
+    if (selectedElements.length < 2) {
         return;
     }
 
@@ -256,7 +258,33 @@ function closeBatchMoveMenu() {
     batchMoveMenu.visible = false;
 }
 
-function moveSelectedElementsTo(target: MyElement) {
+// 模板未带页眉/页脚时按工具箱拖入的同样默认值自动创建（fixed=true 每页重复），
+// 几何与挂载方式与 base-widget.vue 的拖入路径保持一致
+function ensureBatchMoveTarget(key: 'pageHeader' | 'pageFooter'): MyElement {
+    const existing = panel[key] as unknown as MyElement | undefined;
+    if (existing != null) {
+        return existing;
+    }
+    const container = {
+        id: generateUUID(),
+        type: key,
+        option: { fixed: true } as ElementOption,
+        height: 30
+    } as unknown as MyElement;
+    initElement(panel, container, 0);
+    container.width = panel.width;
+    container.x = 0;
+    container.y = key == 'pageHeader' ? 0 : panel.height - container.height;
+    container.runtimeOption.width = unit2px(panel.width);
+    container.runtimeOption.x = 0;
+    container.runtimeOption.y = unit2px(container.y);
+    panel[key] = container as any;
+    installParentElement(panel, container);
+    return container;
+}
+
+function moveSelectedElementsTo(key: 'pageHeader' | 'pageFooter') {
+    const target = ensureBatchMoveTarget(key);
     const selectedElements = getSelectedPanelElements();
 
     batchMoveMenu.visible = false;
