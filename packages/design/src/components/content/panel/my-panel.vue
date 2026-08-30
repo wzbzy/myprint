@@ -80,7 +80,7 @@ import AuxiliaryLine from '@myprint/design/components/design/auxiliary/auxiliary
 import MyIcon from '@myprint/design/components/my/icon/my-icon.vue';
 import { i18n } from '@myprint/design/locales';
 import { mitt } from '@myprint/design/utils/utils';
-import { moveSelectedElementsTo as moveSelectedBodyElementsTo } from '@myprint/design/utils/batchMoveUtil';
+import { getSelectedBodyElements, moveSelectedElementsTo as moveSelectedBodyElementsTo } from '@myprint/design/utils/batchMoveUtil';
 
 const panel = getCurrentPanel();
 const designContentRef = ref<InstanceType<any>>();
@@ -233,16 +233,10 @@ function elementListNone() {
     }
 }
 
-function getSelectedPanelElements() {
-    return appStore.currentElement.filter(element =>
-        element.runtimeOption.parent === panel
-        && element.type != 'PageHeader'
-        && element.type != 'PageFooter'
-    );
-}
-
 function showBatchMoveMenu(event: MouseEvent) {
-    const selectedElements = getSelectedPanelElements();
+    // 与属性面板按钮共用同一份选中过滤（正文 + 页眉/页脚容器子元素，支持跨容器互移），
+    // 避免两处规则漂移——容器子元素选中后右键菜单必须同样弹出
+    const selectedElements = getSelectedBodyElements(panel);
 
     // 页眉/页脚容器不存在时菜单仍显示，移入时自动创建（存量模板大多没拖过页眉页脚）。
     // 单个元素也允许移入（selectFromInside=false 时从元素上起拖只会单选，≥2 条件会让用户以为功能坏了）
