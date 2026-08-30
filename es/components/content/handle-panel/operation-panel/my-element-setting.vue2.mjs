@@ -57,7 +57,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
       return type == "PageHeader" || type == "PageFooter";
     });
     const containerDisplayStrategyList = [
-      { label: i18n("handle.display.everyPage"), value: "" },
+      { label: i18n("handle.display.everyPage"), value: "everyPage" },
       ...displayStrategyList
     ];
     const showBatchMoveEntry = computed(() => {
@@ -93,7 +93,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     }
     function changeDisplayStrategy(val) {
       for (let currentElement of appStore.currentElement) {
-        if (!val) {
+        if (!val || val == "everyPage") {
           delete currentElement.option.displayStrategy;
           continue;
         }
@@ -858,9 +858,9 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                 label: unref(i18n)("handle.display.strategy")
               }, {
                 default: withCtx(() => [
-                  createCommentVNode(" \u5BB9\u5668\u672A\u8BBE\u7F6E displayStrategy \u5373\u6BCF\u9875\u663E\u793A\uFF1B\u4E0B\u62C9\u8865\u300C\u6BCF\u9875\u663E\u793A\u300D\u9009\u9879\u5E76\u4F5C\u4E3A\u9ED8\u8BA4\u56DE\u663E\uFF0C\r\n                     \u907F\u514D\u7528\u6237\u60F3\u9009\u6BCF\u9875\u5374\u8BEF\u9009\u300C\u4E0D\u663E\u793A\u300D\u5BFC\u81F4\u6574\u5BB9\u5668\u6253\u5370\u65F6\u4E0D\u6E32\u67D3\uFF08bomdayin \u9875\u811A\u4E8B\u6545\uFF09 "),
+                  createCommentVNode(" \u5BB9\u5668\u672A\u8BBE\u7F6E displayStrategy \u5373\u6BCF\u9875\u663E\u793A\uFF1B\u4E0B\u62C9\u8865\u300C\u6BCF\u9875\u663E\u793A\u300D\u9009\u9879\u5E76\u4F5C\u4E3A\u9ED8\u8BA4\u56DE\u663E\uFF0C\r\n                     \u907F\u514D\u7528\u6237\u60F3\u9009\u6BCF\u9875\u5374\u8BEF\u9009\u300C\u4E0D\u663E\u793A\u300D\u5BFC\u81F4\u6574\u5BB9\u5668\u6253\u5370\u65F6\u4E0D\u6E32\u67D3\uFF08bomdayin \u9875\u811A\u4E8B\u6545\uFF09\u3002\r\n                     my-select \u5BF9\u7A7A\u503C(falsy)\u7EDF\u4E00\u663E\u793A placeholder\uFF0C\u6240\u4EE5\u300C\u6BCF\u9875\u663E\u793A\u300D\u7528\u54E8\u5175\u503C 'everyPage'\uFF0C\r\n                     changeDisplayStrategy \u91CC\u6620\u5C04\u56DE delete "),
                   createVNode(unref(MyHistorySelect), {
-                    "model-value": unref(multipleElementGetValue)("option.displayStrategy") || "",
+                    "model-value": unref(multipleElementGetValue)("option.displayStrategy") || "everyPage",
                     "onUpdate:modelValue": changeDisplayStrategy,
                     class: "width-120",
                     "data-list": containerDisplayStrategyList,
