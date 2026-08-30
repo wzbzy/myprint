@@ -4,6 +4,7 @@ declare const _default: {
     'common.width': string;
     'common.height': string;
     'common.close': string;
+    'common.clear': string;
     'common.setting': string;
     'common.switch.open': string;
     'common.switch.close': string;

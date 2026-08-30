@@ -6,7 +6,7 @@ import { mitt, to } from '../../utils/utils.mjs';
 import { init } from '../../utils/historyUtil.mjs';
 import { useAppStoreHook } from '../../stores/app.mjs';
 import MyMouseTips from '../my/mouse-tips/my-mouse-tips.vue.mjs';
-import { setCurrentPanel, setPreviewData, setProvider, initPanel, parentInitElement, defaultPreviewData } from '../../utils/elementUtil.mjs';
+import { setCurrentPanel, setPreviewData, setProvider, initPanel, normalizePageHeaderFooterFixed, parentInitElement, defaultPreviewData } from '../../utils/elementUtil.mjs';
 import { newSelecto } from '../../plugins/moveable/selecto.mjs';
 import { MyMessage } from '../my/message/my-message.mjs';
 import { MyPrinter } from '../../printer.mjs';
@@ -99,6 +99,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
       }
       to(JSON.parse(props.template.content), panel);
       setCurrentPanel(panel);
+      normalizePageHeaderFooterFixed(panel);
       if (!panel.watermarkContent) {
       }
       if (!panel.groupList) {

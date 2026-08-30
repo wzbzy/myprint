@@ -62,7 +62,21 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
       }
     }
     function changeOptionFixed() {
+      if (!multipleElementGetValue("option.fixed")) {
+        for (let currentElement of appStore.currentElement) {
+          delete currentElement.option.displayStrategy;
+        }
+      }
       mitt.emit("changeElement");
+    }
+    function changeDisplayStrategy(val) {
+      for (let currentElement of appStore.currentElement) {
+        if (!val) {
+          delete currentElement.option.displayStrategy;
+          continue;
+        }
+        currentElement.option.displayStrategy = val;
+      }
     }
     function changeLock() {
       if (element.value.lock) {
@@ -563,7 +577,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                         "model-value": unref(multipleElementGetValue)("option.padding.top"),
                         "onUpdate:modelValue": _cache[23] || (_cache[23] = (val) => unref(multipleElementSetValue)("option.padding.top", val))
                       }, {
-                        append: withCtx(() => [..._cache[36] || (_cache[36] = [
+                        append: withCtx(() => [..._cache[35] || (_cache[35] = [
                           createTextVNode(
                             "mm",
                             -1
@@ -580,7 +594,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                         "model-value": unref(multipleElementGetValue)("option.padding.bottom"),
                         "onUpdate:modelValue": _cache[24] || (_cache[24] = (val) => unref(multipleElementSetValue)("option.padding.bottom", val))
                       }, {
-                        append: withCtx(() => [..._cache[37] || (_cache[37] = [
+                        append: withCtx(() => [..._cache[36] || (_cache[36] = [
                           createTextVNode(
                             "mm",
                             -1
@@ -597,7 +611,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                         "model-value": unref(multipleElementGetValue)("option.padding.left"),
                         "onUpdate:modelValue": _cache[25] || (_cache[25] = (val) => unref(multipleElementSetValue)("option.padding.left", val))
                       }, {
-                        append: withCtx(() => [..._cache[38] || (_cache[38] = [
+                        append: withCtx(() => [..._cache[37] || (_cache[37] = [
                           createTextVNode(
                             "mm",
                             -1
@@ -614,7 +628,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                         "model-value": unref(multipleElementGetValue)("option.padding.right"),
                         "onUpdate:modelValue": _cache[26] || (_cache[26] = (val) => unref(multipleElementSetValue)("option.padding.right", val))
                       }, {
-                        append: withCtx(() => [..._cache[39] || (_cache[39] = [
+                        append: withCtx(() => [..._cache[38] || (_cache[38] = [
                           createTextVNode(
                             "mm",
                             -1
@@ -646,7 +660,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                         "model-value": unref(multipleElementGetValue)("option.margin.top"),
                         "onUpdate:modelValue": _cache[27] || (_cache[27] = (val) => unref(multipleElementSetValue)("option.margin.top", val))
                       }, {
-                        append: withCtx(() => [..._cache[40] || (_cache[40] = [
+                        append: withCtx(() => [..._cache[39] || (_cache[39] = [
                           createTextVNode(
                             "mm",
                             -1
@@ -663,7 +677,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                         "model-value": unref(multipleElementGetValue)("option.margin.bottom"),
                         "onUpdate:modelValue": _cache[28] || (_cache[28] = (val) => unref(multipleElementSetValue)("option.margin.bottom", val))
                       }, {
-                        append: withCtx(() => [..._cache[41] || (_cache[41] = [
+                        append: withCtx(() => [..._cache[40] || (_cache[40] = [
                           createTextVNode(
                             "mm",
                             -1
@@ -680,7 +694,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                         "model-value": unref(multipleElementGetValue)("option.margin.left"),
                         "onUpdate:modelValue": _cache[29] || (_cache[29] = (val) => unref(multipleElementSetValue)("option.margin.left", val))
                       }, {
-                        append: withCtx(() => [..._cache[42] || (_cache[42] = [
+                        append: withCtx(() => [..._cache[41] || (_cache[41] = [
                           createTextVNode(
                             "mm",
                             -1
@@ -697,7 +711,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                         "model-value": unref(multipleElementGetValue)("option.margin.right"),
                         "onUpdate:modelValue": _cache[30] || (_cache[30] = (val) => unref(multipleElementSetValue)("option.margin.right", val))
                       }, {
-                        append: withCtx(() => [..._cache[43] || (_cache[43] = [
+                        append: withCtx(() => [..._cache[42] || (_cache[42] = [
                           createTextVNode(
                             "mm",
                             -1
@@ -824,7 +838,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                 default: withCtx(() => [
                   createVNode(unref(MyHistorySelect), {
                     "model-value": unref(multipleElementGetValue)("option.displayStrategy"),
-                    "onUpdate:modelValue": _cache[35] || (_cache[35] = (val) => unref(multipleElementSetValue)("option.displayStrategy", val)),
+                    "onUpdate:modelValue": changeDisplayStrategy,
                     class: "width-120",
                     "data-list": unref(displayStrategyList),
                     historyLabel: unref(i18n)("handle.display.strategy")

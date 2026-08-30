@@ -1,7 +1,7 @@
 import { h, render } from 'vue-demi';
 import PrintView from './components/print/print.vue.mjs';
 import previewPanelView from './components/preview/preview-panel.vue.mjs';
-import { parentInitElement, getCurrentPanel } from './utils/elementUtil.mjs';
+import { normalizePageHeaderFooterFixed, parentInitElement, getCurrentPanel } from './utils/elementUtil.mjs';
 import { isBlob, blob2Base64, isArrayBuffer, arrayBuffer2Base64, isUint8Array, uint8Array2Base64, generateUUID } from './utils/utils.mjs';
 import { myPrintClientService } from './plugins/myprintClientService.mjs';
 import { useAppStoreHook } from './stores/app.mjs';
@@ -47,6 +47,7 @@ function installPrinter(app) {
 }
 function initPanel(panel) {
   panel.runtimeOption = {};
+  normalizePageHeaderFooterFixed(panel);
   for (let i = 0; i < panel.elementList.length; i++) {
     const element = panel.elementList[i];
     parentInitElement(panel, panel, element, i);
@@ -74,6 +75,8 @@ function convertPrintProps(printProps) {
         if (typeof printProps.panel == "string") {
           panel = JSON.parse(printProps.panel);
           initPanel(panel);
+        } else {
+          normalizePageHeaderFooterFixed(panel);
         }
       }
     }

@@ -106,6 +106,8 @@ declare const i18nInit: import("vue-i18n").I18n<{
         'handle.clear.canvas': string;
         'handle.print.strategy': string;
         'handle.display.strategy': string;
+        'handle.moveToPageHeader': string;
+        'handle.moveToPageFooter': string;
         'handle.height.attr': string;
         'handle.table.hidden.head': string;
         'handle.table.page.head': string;
@@ -123,6 +125,7 @@ declare const i18nInit: import("vue-i18n").I18n<{
         'common.width': string;
         'common.height': string;
         'common.close': string;
+        'common.clear': string;
         'common.setting': string;
         'common.switch.open': string;
         'common.switch.close': string;
@@ -286,6 +289,8 @@ declare const i18nInit: import("vue-i18n").I18n<{
         'handle.clear.canvas': string;
         'handle.print.strategy': string;
         'handle.display.strategy': string;
+        'handle.moveToPageHeader': string;
+        'handle.moveToPageFooter': string;
         'handle.height.attr': string;
         'handle.table.page.head': string;
         'handle.add.statistics.row': string;
@@ -301,6 +306,7 @@ declare const i18nInit: import("vue-i18n").I18n<{
         'common.width': string;
         'common.height': string;
         'common.close': string;
+        'common.clear': string;
         'common.setting': string;
         'common.switch.open': string;
         'common.switch.close': string;

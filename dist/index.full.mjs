@@ -5,7 +5,7 @@ import { mitt as mitt$2, to as to$2, downloadImg2Base64, replaceSpacesOutsideHTM
 import { init } from '..../utils/historyUtil';
 import { useAppStoreHook as useAppStoreHook$1 } from '..../stores/app';
 import MyMouseTips from '..../components/my/mouse-tips/my-mouse-tips.vue';
-import { setCurrentPanel, setPreviewData, setProvider, initPanel as initPanel$1, parentInitElement as parentInitElement$1, defaultPreviewData, getCurrentPanelUnit as getCurrentPanelUnit$1, valueUnit, getRecursionParentPanel, element2PreviewWrapper, formatter } from '..../utils/elementUtil';
+import { setCurrentPanel, setPreviewData, setProvider, initPanel as initPanel$1, normalizePageHeaderFooterFixed as normalizePageHeaderFooterFixed$1, parentInitElement as parentInitElement$1, defaultPreviewData, getCurrentPanelUnit as getCurrentPanelUnit$1, valueUnit, getRecursionParentPanel, element2PreviewWrapper, formatter } from '..../utils/elementUtil';
 import { newSelecto } from '..../plugins/moveable/selecto';
 import { MyMessage } from '..../components/my/message/my-message';
 import { MyPrinter as MyPrinter$1 } from '..../printer';
@@ -121,6 +121,7 @@ var _sfc_main$3 = /* @__PURE__ */ defineComponent({
       }
       to$2(JSON.parse(props.template.content), panel);
       setCurrentPanel(panel);
+      normalizePageHeaderFooterFixed$1(panel);
       if (!panel.watermarkContent) ;
       if (!panel.groupList) {
         panel.groupList = [];
@@ -6193,7 +6194,7 @@ async function autoPage(previewEl, pageList, panel, previewDataList) {
           previewContext.currentPage.offsetTop = 1;
         }
       }
-      if (previewWrapper.option.fixed && previewWrapper.option.displayStrategy != void 0) {
+      if (previewWrapper.option.fixed && previewWrapper.option.displayStrategy != void 0 && previewWrapper.option.displayStrategy !== "") {
         switch (previewWrapper.option.displayStrategy) {
           case "firstPage":
             if (variable.pageIndex != 1) {
@@ -13179,6 +13180,7 @@ var common$1 = {
   "common.width": "\u5BBD",
   "common.height": "\u9AD8",
   "common.close": "\u5173\u95ED",
+  "common.clear": "\u6E05\u7A7A",
   "common.setting": "\u8BBE\u7F6E",
   "common.switch.open": "\u5F00",
   "common.switch.close": "\u5173",
@@ -13269,6 +13271,8 @@ var handelPanel$1 = {
   "handle.clear.canvas": "\u6E05\u7A7A\u753B\u5E03",
   "handle.print.strategy": "\u6253\u5370\u7B56\u7565",
   "handle.display.strategy": "\u663E\u793A\u7B56\u7565",
+  "handle.moveToPageHeader": "\u79FB\u5165\u9875\u7709",
+  "handle.moveToPageFooter": "\u79FB\u5165\u9875\u811A",
   "handle.height.attr": "\u9AD8\u5EA6\u5C5E\u6027",
   "handle.table.hidden.head": "\u9690\u85CF\u8868\u5934",
   "handle.table.page.head": "\u5206\u9875\u8868\u5934",
@@ -13394,6 +13398,7 @@ var common = {
   "common.width": "Width",
   "common.height": "Height",
   "common.close": "Close",
+  "common.clear": "Clear",
   "common.setting": "Settings",
   "common.switch.open": "On",
   "common.switch.close": "Off",
@@ -13481,6 +13486,8 @@ var handelPanel = {
   "handle.clear.canvas": "Clear Canvas",
   "handle.print.strategy": "Print Strategy",
   "handle.display.strategy": "Display Strategy",
+  "handle.moveToPageHeader": "Move to Header",
+  "handle.moveToPageFooter": "Move to Footer",
   "handle.height.attr": "Height Attribute",
   "handle.table.page.head": "Table Page Header",
   "handle.add.statistics.row": "Add Statistics Row",
@@ -16116,6 +16123,18 @@ function installParentElement(parent, element) {
   }
   element.runtimeOption.parent = parent;
 }
+function normalizePageHeaderFooterFixed(panel) {
+  var _a;
+  for (let element of [panel.pageHeader, panel.pageFooter]) {
+    if (!element) {
+      continue;
+    }
+    element.option = (_a = element.option) != null ? _a : {};
+    if (element.option.fixed == null) {
+      element.option.fixed = true;
+    }
+  }
+}
 function getPrintRealHeight(panel) {
   panel = getCurrentPanel(panel);
   if (panel.pageSize == "AutoHeight") {
@@ -16357,6 +16376,7 @@ function installPrinter(app) {
 }
 function initPanel(panel) {
   panel.runtimeOption = {};
+  normalizePageHeaderFooterFixed(panel);
   for (let i = 0; i < panel.elementList.length; i++) {
     const element = panel.elementList[i];
     parentInitElement(panel, panel, element, i);
@@ -16384,6 +16404,8 @@ function convertPrintProps(printProps) {
         if (typeof printProps.panel == "string") {
           panel = JSON.parse(printProps.panel);
           initPanel(panel);
+        } else {
+          normalizePageHeaderFooterFixed(panel);
         }
       }
     }
