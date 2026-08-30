@@ -18513,7 +18513,8 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
             }[];
             showBatchMoveMenu: (event: MouseEvent) => void;
             closeBatchMoveMenu: () => void;
-            moveSelectedElementsTo: (target: import("..\../types/entity").MyElement) => void;
+            ensureBatchMoveTarget: (key: "pageHeader" | "pageFooter") => import("..\../types/entity").MyElement;
+            moveSelectedElementsTo: (key: "pageHeader" | "pageFooter") => void;
             Rule: import("vue").DefineComponent<import("vue").ExtractPropTypes<{
                 direction: {
                     type: StringConstructor;
