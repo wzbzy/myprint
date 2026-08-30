@@ -453,7 +453,7 @@ export interface ElementOption {
     // aspectRatio: number;
     keepRatio: boolean;
     // 固定位置打印
-    fixed: boolean;
+    fixed?: boolean;
     fontFamily: string;
     fontSize: number;
     opacity: number;

@@ -56,6 +56,37 @@
     width: 32px;
   }
 
+  .my-select-clear {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    margin-right: 2px;
+    cursor: pointer;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 2px;
+      width: 10px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    &::before {
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+    }
+
+    &:hover {
+      color: var(--drag-h-color);
+    }
+  }
+
   .my-select-arrow-middle {
     height: 32px !important;
     line-height: 32px !important;

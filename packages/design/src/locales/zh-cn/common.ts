@@ -6,6 +6,7 @@ export default {
     'common.width': '宽',
     'common.height': '高',
     'common.close': '关闭',
+    'common.clear': '清空',
     'common.setting': '设置',
     'common.switch.open': '开',
     'common.switch.close': '关',

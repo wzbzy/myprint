@@ -26,6 +26,7 @@ import MyMouseTips from '@myprint/design/components/my/mouse-tips/my-mouse-tips.
 import {
     defaultPreviewData,
     initPanel,
+    normalizePageHeaderFooterFixed,
     parentInitElement,
     setCurrentPanel,
     setPreviewData,
@@ -129,6 +130,7 @@ function initTemplate() {
     }
     to(JSON.parse(props.template.content), panel);
     setCurrentPanel(panel);
+    normalizePageHeaderFooterFixed(panel);
     
     // initPanel();
     

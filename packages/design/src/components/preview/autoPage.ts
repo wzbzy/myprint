@@ -167,7 +167,7 @@ export async function autoPage(previewEl: Ref<HTMLDivElement[] | undefined>, pag
                 }
             }
 
-            if (previewWrapper.option.fixed && previewWrapper.option.displayStrategy != undefined) {
+            if (previewWrapper.option.fixed && previewWrapper.option.displayStrategy != undefined && (previewWrapper.option.displayStrategy as string) !== '') {
                 switch (previewWrapper.option.displayStrategy) {
                     case 'firstPage':
                         if (variable.pageIndex != 1) {

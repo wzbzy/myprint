@@ -75,11 +75,17 @@ export const customProvider = {
         {
             type: 'PageHeader',
             iconClass: 'iconfont-color icon-color-page_header',
+            option: {
+                fixed: true
+            } as ElementOption,
             'height': 30
         } as any,
         {
             type: 'PageFooter',
             iconClass: 'iconfont-color icon-color-page_footer',
+            option: {
+                fixed: true
+            } as ElementOption,
             'height': 30
         } as any,
         {

@@ -1,7 +1,7 @@
 import { App, h, render, VNode } from 'vue-demi';
 import PrintView from './components/print/print.vue';
 import previewPanelView from './components/preview/preview-panel.vue';
-import { getCurrentPanel, parentInitElement } from './utils/elementUtil';
+import { getCurrentPanel, normalizePageHeaderFooterFixed, parentInitElement } from './utils/elementUtil';
 import { MyPrintConfig, Panel, PrintResult, PrintOptions } from './types/entity';
 import {
     arrayBuffer2Base64,
@@ -67,6 +67,7 @@ export function installPrinter(app: App<any>) {
 
 function initPanel(panel: Panel) {
     panel.runtimeOption = {} as any;
+    normalizePageHeaderFooterFixed(panel);
     for (let i = 0; i < panel.elementList.length; i++) {
         const element = panel.elementList[i];
         parentInitElement(panel, panel, element, i);
@@ -95,6 +96,8 @@ function convertPrintProps(printProps: PrintOptions) {
                 if (typeof printProps.panel == 'string') {
                     panel = JSON.parse(printProps.panel);
                     initPanel(panel as Panel);
+                } else {
+                    normalizePageHeaderFooterFixed(panel as Panel);
                 }
             }
         }

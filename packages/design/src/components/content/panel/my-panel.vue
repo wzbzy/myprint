@@ -18,6 +18,7 @@
                   :highlight="highlightRule.vertical.highlight"
                   :scroll="highlightRule.vertical.scroll" />
             <div class="affix-container design-content-scroll " @scroll="scroll" @wheel="wheel"
+                 @contextmenu.prevent="showBatchMoveMenu"
                  ref="designScrollRef">
                 <div class="design-content design-content-bg"
                      ref="designContentRef"
@@ -33,7 +34,22 @@
                     <element-list :elementList="panel.elementList" />
                 </div>
             </div>
-            
+
+            <div v-if="batchMoveMenu.visible" class="design-context-menu-mask" @click="closeBatchMoveMenu">
+                <div class="design-context-menu"
+                     :style="{ left: batchMoveMenu.x + 'px', top: batchMoveMenu.y + 'px' }"
+                     @click.stop>
+                    <button v-if="panel.pageHeader" type="button"
+                            @click="moveSelectedElementsTo(panel.pageHeader)">
+                        {{ i18n('handle.moveToPageHeader') }}
+                    </button>
+                    <button v-if="panel.pageFooter" type="button"
+                            @click="moveSelectedElementsTo(panel.pageFooter)">
+                        {{ i18n('handle.moveToPageFooter') }}
+                    </button>
+                </div>
+            </div>
+
             <auxiliary-line :element="item" :key="item.id"
                             :scroll-x="highlightRule.horizontal.scroll"
                             :scroll-y="highlightRule.vertical.scroll"
@@ -52,8 +68,8 @@ import Rule from '@myprint/design/components/my/rule/rule.vue';
 import { scaleUtil } from '@myprint/design/utils/scaleUtil';
 import { nextTick, onMounted, onUnmounted, reactive, ref } from 'vue-demi';
 import { Container, ContentScaleVo, MyElement } from '@myprint/design/types/entity';
-import { record, Snapshot } from '@myprint/design/utils/historyUtil';
-import { getCurrentPanel, handle, none, valueUnit } from '@myprint/design/utils/elementUtil';
+import { ActionEnum, record, Snapshot } from '@myprint/design/utils/historyUtil';
+import { addElement, getCurrentPanel, handle, none, removeElement, valueUnit } from '@myprint/design/utils/elementUtil';
 import { useAppStoreHook as useAppStore } from '@myprint/design/stores/app';
 import ElementList from '@myprint/design/components/design/element-list.vue';
 import { mountedKeyboardEvent, unMountedKeyboardEvent } from '@myprint/design/utils/keyboardUtil';
@@ -71,6 +87,11 @@ const contentScale = reactive({
     openIs: false
 } as ContentScaleVo);
 const auxiliaryLineVisible = ref(true);
+const batchMoveMenu = reactive({
+    visible: false,
+    x: 0,
+    y: 0
+});
 let resizeObserver: ResizeObserver;
 const highlightRule = reactive({
     horizontal: {
@@ -208,5 +229,54 @@ function elementListNone() {
     for (let valueElement of panel.elementList!) {
         none(valueElement);
     }
+}
+
+function getSelectedPanelElements() {
+    return appStore.currentElement.filter(element =>
+        element.runtimeOption.parent === panel
+        && element.type != 'PageHeader'
+        && element.type != 'PageFooter'
+    );
+}
+
+function showBatchMoveMenu(event: MouseEvent) {
+    const selectedElements = getSelectedPanelElements();
+
+    if (selectedElements.length < 2 || (!panel.pageHeader && !panel.pageFooter)) {
+        return;
+    }
+
+    batchMoveMenu.visible = true;
+    batchMoveMenu.x = event.clientX;
+    batchMoveMenu.y = event.clientY;
+}
+
+function closeBatchMoveMenu() {
+    batchMoveMenu.visible = false;
+}
+
+function moveSelectedElementsTo(target: MyElement) {
+    const selectedElements = getSelectedPanelElements();
+
+    batchMoveMenu.visible = false;
+    if (selectedElements.length < 2) {
+        return;
+    }
+
+    for (let element of selectedElements) {
+        delete element.option.fixed;
+        delete element.option.displayStrategy;
+        removeElement(element);
+        element.x -= target.x;
+        element.y -= target.y;
+        addElement(panel, target, element);
+    }
+
+    updatePanel();
+    record({
+        type: 'PANEL',
+        action: ActionEnum.BATCH_MOVE,
+        elementList: selectedElements
+    });
 }
 </script>

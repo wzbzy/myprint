@@ -711,6 +711,18 @@ export function installParentElement(parent?: Container, element?: MyElement) {
     element.runtimeOption.parent = parent;
 }
 
+export function normalizePageHeaderFooterFixed(panel: Panel) {
+    for (let element of [panel.pageHeader, panel.pageFooter]) {
+        if (!element) {
+            continue;
+        }
+        element.option = element.option ?? ({} as ElementOption);
+        if (element.option.fixed == null) {
+            element.option.fixed = true;
+        }
+    }
+}
+
 export function clearParent(element: MyElement) {
     if (element.runtimeOption == null || element.runtimeOption.parent == undefined) {
         return;

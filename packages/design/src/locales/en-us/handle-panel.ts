@@ -38,6 +38,8 @@ export default {
     'handle.clear.canvas': 'Clear Canvas',
     'handle.print.strategy': 'Print Strategy',
     'handle.display.strategy': 'Display Strategy',
+    'handle.moveToPageHeader': 'Move to Header',
+    'handle.moveToPageFooter': 'Move to Footer',
     'handle.height.attr': 'Height Attribute',
     'handle.table.page.head': 'Table Page Header',
     'handle.add.statistics.row': 'Add Statistics Row',

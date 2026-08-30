@@ -9,10 +9,16 @@
             'my-select-middle': size== 'middle'
             }, 'my-color-icon']">
                 <div class="my-select-input" :class="{
-                    'my-select-input_placeholder': isNull(modelValue)
+                    'my-select-input_placeholder': isEmpty(modelValue)
                 }">
-                    {{ isNull(modelValue) ? placeholder : data.label }}
+                    {{ isEmpty(modelValue) ? placeholder : data.label }}
                 </div>
+                <i v-if="!isEmpty(modelValue) && !disabled"
+                   class="my-select-clear"
+                   role="button"
+                   :aria-label="i18n('common.clear')"
+                   :title="i18n('common.clear')"
+                   @click.stop="clear" />
                 <my-icon class="my-select-arrow my-style-font_arrow icon-jt-x iconfont my-icon-downList-arrow"
                          :focusBk="false"
                          :class="[{
@@ -38,7 +44,7 @@ import ElementAlign from '@myprint/design/components/content/toolbar/toolbar-sty
 import MyScrollbar from '@myprint/design/components/my/scrollbar/my-scrollbar.vue';
 import MyPopover from '@myprint/design/components/my/popover/my-popover.vue';
 import MyIcon from '@myprint/design/components/my/icon/my-icon.vue';
-import { isEmpty, isNull } from 'lodash';
+import { isEmpty } from 'lodash';
 import { reactive, ref, watch } from 'vue-demi';
 import { i18n } from '@myprint/design/locales';
 
@@ -90,5 +96,12 @@ function change(val: any) {
     emit('change', val.value);
     data.label = val.label;
     popoverRef.value!.close();
+}
+
+function clear() {
+    data.label = '';
+    popoverRef.value!.close();
+    emit('update:modelValue', null);
+    emit('change', null);
 }
 </script>

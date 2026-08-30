@@ -389,7 +389,7 @@
             <my-form-item :label="i18n('handle.display.strategy')"
                           v-if="multipleElementGetValue('option.fixed')">
                 <my-history-select :model-value="multipleElementGetValue('option.displayStrategy')"
-                                   @update:model-value="(val:any)=>multipleElementSetValue('option.displayStrategy', val)"
+                                   @update:model-value="changeDisplayStrategy"
                                    class="width-120"
                                    :data-list="displayStrategyList"
                                    :historyLabel="i18n('handle.display.strategy')" />
@@ -484,7 +484,22 @@ function changeTableBodyHeight(val: number) {
 }
 
 function changeOptionFixed() {
+    if (!multipleElementGetValue('option.fixed')) {
+        for (let currentElement of appStore.currentElement) {
+            delete currentElement.option.displayStrategy;
+        }
+    }
     mitt.emit('changeElement');
+}
+
+function changeDisplayStrategy(val: any) {
+    for (let currentElement of appStore.currentElement) {
+        if (!val) {
+            delete currentElement.option.displayStrategy;
+            continue;
+        }
+        currentElement.option.displayStrategy = val;
+    }
 }
 
 function changeLock() {
