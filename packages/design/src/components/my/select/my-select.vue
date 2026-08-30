@@ -7,7 +7,8 @@
         <template #reference>
             <div class="display-flex my-select" :class="[{'my-icon-disabled': disabled,
             'my-select-middle': size== 'middle'
-            }, 'my-color-icon']">
+            }, 'my-color-icon']"
+                 @click="wrapperClick">
                 <div class="my-select-input" :class="{
                     'my-select-input_placeholder': isEmpty(modelValue)
                 }">
@@ -17,8 +18,7 @@
                    class="my-select-clear"
                    role="button"
                    :aria-label="i18n('common.clear')"
-                   :title="i18n('common.clear')"
-                   @click.stop="clear" />
+                   :title="i18n('common.clear')" />
                 <my-icon class="my-select-arrow my-style-font_arrow icon-jt-x iconfont my-icon-downList-arrow"
                          :focusBk="false"
                          :class="[{
@@ -103,5 +103,14 @@ function clear() {
     popoverRef.value!.close();
     emit('update:modelValue', null);
     emit('change', null);
+}
+
+// 清除图标是 v-if 条件渲染节点，个别环境下监听器不会 patch 上去；
+// 委托给稳定挂载的包裹层处理，target 命中 .my-select-clear 即视为清空
+function wrapperClick(e: MouseEvent) {
+    if (!props.disabled && (e.target as HTMLElement)?.classList?.contains('my-select-clear')) {
+        e.stopPropagation();
+        clear();
+    }
 }
 </script>

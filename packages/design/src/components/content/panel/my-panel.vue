@@ -78,6 +78,7 @@ import Design from '@myprint/design/components/design/design.vue';
 import { initSelecto, selecto } from '@myprint/design/plugins/moveable/selecto';
 import AuxiliaryLine from '@myprint/design/components/design/auxiliary/auxiliary-line.vue';
 import MyIcon from '@myprint/design/components/my/icon/my-icon.vue';
+import { i18n } from '@myprint/design/locales';
 import { mitt } from '@myprint/design/utils/utils';
 
 const panel = getCurrentPanel();
@@ -269,6 +270,9 @@ function moveSelectedElementsTo(target: MyElement) {
         removeElement(element);
         element.x -= target.x;
         element.y -= target.y;
+        // 批量移入时元素可能来自正文任意位置，相对坐标为负或越界，钳制在容器内
+        element.x = Math.min(Math.max(element.x, 0), Math.max(target.width - element.width, 0));
+        element.y = Math.min(Math.max(element.y, 0), Math.max(target.height - element.height, 0));
         addElement(panel, target, element);
     }
 
