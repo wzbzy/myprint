@@ -1,5 +1,5 @@
 import { defineComponent, openBlock, createBlock, withCtx, createVNode, createSlots, unref, createCommentVNode, createTextVNode, toDisplayString, normalizeClass, createElementVNode } from 'vue';
-import { getElementSetting, barcodeTypes, tableBodyHeightTypeList, textContentTypes, qrCodeErrorCorrectionLevel, dottedStyleList, displayStrategyList } from '../../../../constants/common.mjs';
+import { displayStrategyList, getElementSetting, barcodeTypes, tableBodyHeightTypeList, textContentTypes, qrCodeErrorCorrectionLevel, dottedStyleList } from '../../../../constants/common.mjs';
 import '../../../my/input/index.mjs';
 import { multipleElementGetValue, getCurrentPanel, multipleElementSetValue, setElementHeightPx, getPositionX, getPositionY } from '../../../../utils/elementUtil.mjs';
 import MyDividerPanel from '../../../my/divider/my-divider-panel.vue.mjs';
@@ -56,6 +56,10 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
       const type = multipleElementGetValue("type");
       return type == "PageHeader" || type == "PageFooter";
     });
+    const containerDisplayStrategyList = [
+      { label: i18n("handle.display.everyPage"), value: "" },
+      ...displayStrategyList
+    ];
     const showBatchMoveEntry = computed(() => {
       if (isPageContainer.value || !noWorkInTableIs.value) {
         return false;
@@ -854,13 +858,14 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                 label: unref(i18n)("handle.display.strategy")
               }, {
                 default: withCtx(() => [
+                  createCommentVNode(" \u5BB9\u5668\u672A\u8BBE\u7F6E displayStrategy \u5373\u6BCF\u9875\u663E\u793A\uFF1B\u4E0B\u62C9\u8865\u300C\u6BCF\u9875\u663E\u793A\u300D\u9009\u9879\u5E76\u4F5C\u4E3A\u9ED8\u8BA4\u56DE\u663E\uFF0C\r\n                     \u907F\u514D\u7528\u6237\u60F3\u9009\u6BCF\u9875\u5374\u8BEF\u9009\u300C\u4E0D\u663E\u793A\u300D\u5BFC\u81F4\u6574\u5BB9\u5668\u6253\u5370\u65F6\u4E0D\u6E32\u67D3\uFF08bomdayin \u9875\u811A\u4E8B\u6545\uFF09 "),
                   createVNode(unref(MyHistorySelect), {
-                    "model-value": unref(multipleElementGetValue)("option.displayStrategy"),
+                    "model-value": unref(multipleElementGetValue)("option.displayStrategy") || "",
                     "onUpdate:modelValue": changeDisplayStrategy,
                     class: "width-120",
-                    "data-list": unref(displayStrategyList),
+                    "data-list": containerDisplayStrategyList,
                     historyLabel: unref(i18n)("handle.display.strategy")
-                  }, null, 8, ["model-value", "data-list", "historyLabel"])
+                  }, null, 8, ["model-value", "historyLabel"])
                 ]),
                 _: 1
                 /* STABLE */

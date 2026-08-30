@@ -6,9 +6,16 @@ import { generateUUID } from './utils.mjs';
 import { useAppStoreHook } from '../stores/app.mjs';
 
 function getSelectedBodyElements(panel) {
-  return useAppStoreHook().currentElement.filter(
-    (element) => element.runtimeOption?.parent === panel && element.type != "PageHeader" && element.type != "PageFooter"
-  );
+  return useAppStoreHook().currentElement.filter((element) => {
+    const parent = element.runtimeOption?.parent;
+    if (!parent) {
+      return false;
+    }
+    if (element.type == "PageHeader" || element.type == "PageFooter") {
+      return false;
+    }
+    return parent === panel || parent.type == "PageHeader" || parent.type == "PageFooter";
+  });
 }
 function ensureBatchMoveTarget(panel, key) {
   const existing = panel[key];
@@ -40,11 +47,17 @@ function moveSelectedElementsTo(panel, key) {
     return;
   }
   for (let element of selectedElements) {
-    delete element.option.fixed;
-    delete element.option.displayStrategy;
+    const fromParent = element.runtimeOption.parent;
+    const fromIsContainer = fromParent !== panel;
+    if (!fromIsContainer) {
+      delete element.option.fixed;
+      delete element.option.displayStrategy;
+    }
     removeElement(element);
-    element.x -= target.x;
-    element.y -= target.y;
+    const absoluteX = element.x + (fromIsContainer ? fromParent.x : 0);
+    const absoluteY = element.y + (fromIsContainer ? fromParent.y : 0);
+    element.x = absoluteX - target.x;
+    element.y = absoluteY - target.y;
     element.x = Math.min(Math.max(element.x, 0), Math.max(target.width - element.width, 0));
     element.y = Math.min(Math.max(element.y, 0), Math.max(target.height - element.height, 0));
     addElement(panel, target, element);
