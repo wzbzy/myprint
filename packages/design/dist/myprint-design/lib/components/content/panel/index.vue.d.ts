@@ -9011,6 +9011,7 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
             element: import("vue").ComputedRef<import("..\..\../types/entity").MyElement>;
             noWorkInTableIs: import("vue").ComputedRef<boolean>;
             isPageContainer: import("vue").ComputedRef<boolean>;
+            containerDisplayStrategyList: any[];
             showBatchMoveEntry: import("vue").ComputedRef<boolean>;
             batchMoveToPageContainer: (key: "pageHeader" | "pageFooter") => void;
             includeProps: (props: string, attr: import("../../../constants/common").elementSettingType) => boolean;
@@ -9030,7 +9031,6 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
                 value: string;
                 eg: string;
             }[];
-            readonly displayStrategyList: any[];
             readonly dottedStyleList: {
                 label: string;
                 value: string;

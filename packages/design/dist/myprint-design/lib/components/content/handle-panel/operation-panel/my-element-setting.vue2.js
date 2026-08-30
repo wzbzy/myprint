@@ -60,6 +60,10 @@ var _sfc_main = /* @__PURE__ */ vue.defineComponent({
       const type = elementUtil.multipleElementGetValue("type");
       return type == "PageHeader" || type == "PageFooter";
     });
+    const containerDisplayStrategyList = [
+      { label: index.i18n("handle.display.everyPage"), value: "" },
+      ...common.displayStrategyList
+    ];
     const showBatchMoveEntry = vueDemi.computed(() => {
       if (isPageContainer.value || !noWorkInTableIs.value) {
         return false;
@@ -858,13 +862,14 @@ var _sfc_main = /* @__PURE__ */ vue.defineComponent({
                 label: vue.unref(index.i18n)("handle.display.strategy")
               }, {
                 default: vue.withCtx(() => [
+                  vue.createCommentVNode(" \u5BB9\u5668\u672A\u8BBE\u7F6E displayStrategy \u5373\u6BCF\u9875\u663E\u793A\uFF1B\u4E0B\u62C9\u8865\u300C\u6BCF\u9875\u663E\u793A\u300D\u9009\u9879\u5E76\u4F5C\u4E3A\u9ED8\u8BA4\u56DE\u663E\uFF0C\r\n                     \u907F\u514D\u7528\u6237\u60F3\u9009\u6BCF\u9875\u5374\u8BEF\u9009\u300C\u4E0D\u663E\u793A\u300D\u5BFC\u81F4\u6574\u5BB9\u5668\u6253\u5370\u65F6\u4E0D\u6E32\u67D3\uFF08bomdayin \u9875\u811A\u4E8B\u6545\uFF09 "),
                   vue.createVNode(vue.unref(historySelect.default), {
-                    "model-value": vue.unref(elementUtil.multipleElementGetValue)("option.displayStrategy"),
+                    "model-value": vue.unref(elementUtil.multipleElementGetValue)("option.displayStrategy") || "",
                     "onUpdate:modelValue": changeDisplayStrategy,
                     class: "width-120",
-                    "data-list": vue.unref(common.displayStrategyList),
+                    "data-list": containerDisplayStrategyList,
                     historyLabel: vue.unref(index.i18n)("handle.display.strategy")
-                  }, null, 8, ["model-value", "data-list", "historyLabel"])
+                  }, null, 8, ["model-value", "historyLabel"])
                 ]),
                 _: 1
                 /* STABLE */

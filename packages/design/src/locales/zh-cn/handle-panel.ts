@@ -41,6 +41,7 @@ export default {
     'handle.clear.canvas': '清空画布',
     'handle.print.strategy': '打印策略',
     'handle.display.strategy': '显示策略',
+    'handle.display.everyPage': '每页显示',
     'handle.moveToPageHeader': '移入页眉',
     'handle.moveToPageFooter': '移入页脚',
     'handle.moveToContainer': '移入页眉页脚',

@@ -388,10 +388,12 @@
             
             <my-form-item :label="i18n('handle.display.strategy')"
                           v-if="isPageContainer && multipleElementGetValue('option.fixed')">
-                <my-history-select :model-value="multipleElementGetValue('option.displayStrategy')"
+                <!-- 容器未设置 displayStrategy 即每页显示；下拉补「每页显示」选项并作为默认回显，
+                     避免用户想选每页却误选「不显示」导致整容器打印时不渲染（bomdayin 页脚事故） -->
+                <my-history-select :model-value="multipleElementGetValue('option.displayStrategy') || ''"
                                    @update:model-value="changeDisplayStrategy"
                                    class="width-120"
-                                   :data-list="displayStrategyList"
+                                   :data-list="containerDisplayStrategyList"
                                    :historyLabel="i18n('handle.display.strategy')" />
             </my-form-item>
         
@@ -491,6 +493,14 @@ const isPageContainer = computed(() => {
     const type = multipleElementGetValue('type');
     return type == 'PageHeader' || type == 'PageFooter';
 });
+
+// 容器的显示策略下拉：原生列表只有 不显示/首页/尾页/奇数/偶数，「每页」要靠清空值（没有入口），
+// 用户想选每页时只能误选「不显示」→ 打印时整容器被 autoPage 跳过（bomdayin 页脚事故）。
+// 首位补「每页显示」（value ''，changeDisplayStrategy 对空值执行 delete 即回到每页语义）
+const containerDisplayStrategyList = [
+    { label: i18n('handle.display.everyPage'), value: '' },
+    ...displayStrategyList
+];
 
 // 选中正文元素（≥1 个、非容器本身、非表格内）时显示「移入页眉/页脚」入口
 const showBatchMoveEntry = computed(() => {

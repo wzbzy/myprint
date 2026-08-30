@@ -38,6 +38,7 @@ export default {
     'handle.clear.canvas': 'Clear Canvas',
     'handle.print.strategy': 'Print Strategy',
     'handle.display.strategy': 'Display Strategy',
+    'handle.display.everyPage': 'Every Page',
     'handle.moveToPageHeader': 'Move to Header',
     'handle.moveToPageFooter': 'Move to Footer',
     'handle.moveToContainer': 'Move to Header/Footer',

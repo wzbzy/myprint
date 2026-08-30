@@ -41,6 +41,7 @@ declare const _default: {
     'handle.clear.canvas': string;
     'handle.print.strategy': string;
     'handle.display.strategy': string;
+    'handle.display.everyPage': string;
     'handle.moveToPageHeader': string;
     'handle.moveToPageFooter': string;
     'handle.moveToContainer': string;

@@ -8,13 +8,19 @@ import { useAppStoreHook } from '@myprint/design/stores/app';
 
 export type PageContainerKey = 'pageHeader' | 'pageFooter';
 
-// 当前面板选中的正文元素（排除页眉/页脚容器本身——容器不能再移入容器）
+// 当前面板选中的可移入元素：正文元素 + 页眉/页脚容器内的子元素（支持跨容器互移），
+// 仅排除页眉/页脚容器本身——容器不能再移入容器
 export function getSelectedBodyElements(panel: Panel): MyElement[] {
-    return useAppStoreHook().currentElement.filter(element =>
-        element.runtimeOption?.parent === panel
-        && element.type != 'PageHeader'
-        && element.type != 'PageFooter'
-    );
+    return useAppStoreHook().currentElement.filter(element => {
+        const parent = element.runtimeOption?.parent;
+        if (!parent) {
+            return false;
+        }
+        if (element.type == 'PageHeader' || element.type == 'PageFooter') {
+            return false;
+        }
+        return parent === panel || parent.type == 'PageHeader' || parent.type == 'PageFooter';
+    });
 }
 
 // 模板未带页眉/页脚时按工具箱拖入的同样默认值自动创建（fixed=true 每页重复），
@@ -43,7 +49,8 @@ export function ensureBatchMoveTarget(panel: Panel, key: PageContainerKey): MyEl
     return container;
 }
 
-// 把选中的正文元素移入页眉/页脚容器（容器缺失时自动创建），右键菜单与属性面板按钮共用
+// 把选中元素移入页眉/页脚容器（容器缺失时自动创建），右键菜单与属性面板按钮共用。
+// 来源可以是正文或另一个页眉/页脚容器（跨容器互移）：x/y 统一先换算成页面绝对坐标再对目标取相对
 export function moveSelectedElementsTo(panel: Panel, key: PageContainerKey) {
     const target = ensureBatchMoveTarget(panel, key);
     const selectedElements = getSelectedBodyElements(panel);
@@ -53,11 +60,19 @@ export function moveSelectedElementsTo(panel: Panel, key: PageContainerKey) {
     }
 
     for (let element of selectedElements) {
-        delete element.option.fixed;
-        delete element.option.displayStrategy;
+        const fromParent = element.runtimeOption.parent!;
+        const fromIsContainer = fromParent !== panel;
+        // 正文元素的 fixed/displayStrategy 是页面级语义，进容器后无意义；容器间互移保持原状
+        // （如 PageNum 的 fixed 让它在打印时提升到页面级，删掉会破坏页码）
+        if (!fromIsContainer) {
+            delete element.option.fixed;
+            delete element.option.displayStrategy;
+        }
         removeElement(element);
-        element.x -= target.x;
-        element.y -= target.y;
+        const absoluteX = element.x + (fromIsContainer ? fromParent.x : 0);
+        const absoluteY = element.y + (fromIsContainer ? fromParent.y : 0);
+        element.x = absoluteX - target.x;
+        element.y = absoluteY - target.y;
         // 批量移入时元素可能来自正文任意位置，相对坐标为负或越界，钳制在容器内
         element.x = Math.min(Math.max(element.x, 0), Math.max(target.width - element.width, 0));
         element.y = Math.min(Math.max(element.y, 0), Math.max(target.height - element.height, 0));
