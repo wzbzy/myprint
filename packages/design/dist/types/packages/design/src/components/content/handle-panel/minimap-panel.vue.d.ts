@@ -83,7 +83,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;
@@ -151,7 +151,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -233,7 +233,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -301,7 +301,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -390,7 +390,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -458,7 +458,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                                     qrCodeScale: number;
                                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                     keepRatio: boolean;
-                                    fixed: boolean;
+                                    fixed?: boolean;
                                     fontFamily: string;
                                     fontSize: number;
                                     opacity: number;
@@ -564,7 +564,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -632,7 +632,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -737,7 +737,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;
@@ -805,7 +805,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -887,7 +887,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -955,7 +955,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -1044,7 +1044,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -1112,7 +1112,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                                     qrCodeScale: number;
                                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                     keepRatio: boolean;
-                                    fixed: boolean;
+                                    fixed?: boolean;
                                     fontFamily: string;
                                     fontSize: number;
                                     opacity: number;
@@ -1218,7 +1218,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -1286,7 +1286,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -1394,7 +1394,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                     qrCodeScale: number;
                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                     keepRatio: boolean;
-                    fixed: boolean;
+                    fixed?: boolean;
                     fontFamily: string;
                     fontSize: number;
                     opacity: number;
@@ -1462,7 +1462,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;
@@ -1581,7 +1581,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;
@@ -1649,7 +1649,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -1731,7 +1731,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -1799,7 +1799,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -1888,7 +1888,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -1956,7 +1956,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                                     qrCodeScale: number;
                                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                     keepRatio: boolean;
-                                    fixed: boolean;
+                                    fixed?: boolean;
                                     fontFamily: string;
                                     fontSize: number;
                                     opacity: number;
@@ -2062,7 +2062,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -2130,7 +2130,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -2235,7 +2235,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;
@@ -2303,7 +2303,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -2385,7 +2385,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -2453,7 +2453,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -2542,7 +2542,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -2610,7 +2610,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                                     qrCodeScale: number;
                                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                     keepRatio: boolean;
-                                    fixed: boolean;
+                                    fixed?: boolean;
                                     fontFamily: string;
                                     fontSize: number;
                                     opacity: number;
@@ -2716,7 +2716,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -2784,7 +2784,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -2892,7 +2892,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                     qrCodeScale: number;
                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                     keepRatio: boolean;
-                    fixed: boolean;
+                    fixed?: boolean;
                     fontFamily: string;
                     fontSize: number;
                     opacity: number;
@@ -2960,7 +2960,7 @@ declare const _default: import("vue").DefineComponent<{}, {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;

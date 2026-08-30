@@ -104,6 +104,8 @@ declare const _default: {
     'handle.clear.canvas': string;
     'handle.print.strategy': string;
     'handle.display.strategy': string;
+    'handle.moveToPageHeader': string;
+    'handle.moveToPageFooter': string;
     'handle.height.attr': string;
     'handle.table.hidden.head': string;
     'handle.table.page.head': string;
@@ -121,6 +123,7 @@ declare const _default: {
     'common.width': string;
     'common.height': string;
     'common.close': string;
+    'common.clear': string;
     'common.setting': string;
     'common.switch.open': string;
     'common.switch.close': string;

@@ -1,3 +1,4 @@
+import { i18n } from '@myprint/design/locales';
 declare const _default: import("vue").DefineComponent<import("vue").ExtractPropTypes<{
     disabled: {
         type: BooleanConstructor;
@@ -258,6 +259,8 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
         trigger: string;
     }>>;
     change: (val: any) => void;
+    clear: () => void;
+    wrapperClick: (e: MouseEvent) => void;
     ElementAlign: import("vue").DefineComponent<import("vue").ExtractPropTypes<{
         showSelectedStatus: {
             type: BooleanConstructor;
@@ -589,7 +592,17 @@ declare const _default: import("vue").DefineComponent<import("vue").ExtractPropT
         disabled: boolean;
         focusBk: boolean;
     }, {}, {}, {}, string, import("vue").ComponentProvideOptions, true, {}, any>;
-    readonly isNull: (value: any) => value is null;
+    readonly isEmpty: {
+        <T extends {
+            __trapAny: any;
+        }>(value?: T): boolean;
+        (value: string): value is "";
+        (value: Map<any, any> | Set<any> | import("lodash").List<any>): boolean;
+        (value: object): boolean;
+        <T_1 extends object>(value: T_1): value is import("lodash").EmptyObjectOf<T_1>;
+        (value?: any): boolean;
+    };
+    readonly i18n: typeof i18n;
 }, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("change" | "update:modelValue")[], "change" | "update:modelValue", import("vue").PublicProps, Readonly<import("vue").ExtractPropTypes<{
     disabled: {
         type: BooleanConstructor;

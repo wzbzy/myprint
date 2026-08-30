@@ -5,6 +5,7 @@ var common = {
   "common.width": "\u5BBD",
   "common.height": "\u9AD8",
   "common.close": "\u5173\u95ED",
+  "common.clear": "\u6E05\u7A7A",
   "common.setting": "\u8BBE\u7F6E",
   "common.switch.open": "\u5F00",
   "common.switch.close": "\u5173",

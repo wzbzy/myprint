@@ -11,6 +11,7 @@ var lodash = require('lodash');
 var vueDemi = require('vue-demi');
 var index = require('../../../locales/index.js');
 
+const _hoisted_1 = ["aria-label", "title"];
 var _sfc_main = /* @__PURE__ */ vue.defineComponent({
   __name: "my-select",
   props: {
@@ -55,6 +56,18 @@ var _sfc_main = /* @__PURE__ */ vue.defineComponent({
       data.label = val.label;
       popoverRef.value.close();
     }
+    function clear() {
+      data.label = "";
+      popoverRef.value.close();
+      emit("update:modelValue", null);
+      emit("change", null);
+    }
+    function wrapperClick(e) {
+      if (!props.disabled && e.target?.classList?.contains("my-select-clear")) {
+        e.stopPropagation();
+        clear();
+      }
+    }
     return (_ctx, _cache) => {
       return vue.openBlock(), vue.createBlock(myPopover.default, {
         trigger: "click",
@@ -70,20 +83,28 @@ var _sfc_main = /* @__PURE__ */ vue.defineComponent({
               class: vue.normalizeClass(["display-flex my-select", [{
                 "my-icon-disabled": __props.disabled,
                 "my-select-middle": __props.size == "middle"
-              }, "my-color-icon"]])
+              }, "my-color-icon"]]),
+              onClick: wrapperClick
             },
             [
               vue.createElementVNode(
                 "div",
                 {
                   class: vue.normalizeClass(["my-select-input", {
-                    "my-select-input_placeholder": vue.unref(lodash.isNull)(__props.modelValue)
+                    "my-select-input_placeholder": vue.unref(lodash.isEmpty)(__props.modelValue)
                   }])
                 },
-                vue.toDisplayString(vue.unref(lodash.isNull)(__props.modelValue) ? __props.placeholder : vue.unref(data).label),
+                vue.toDisplayString(vue.unref(lodash.isEmpty)(__props.modelValue) ? __props.placeholder : vue.unref(data).label),
                 3
                 /* TEXT, CLASS */
               ),
+              !vue.unref(lodash.isEmpty)(__props.modelValue) && !__props.disabled ? (vue.openBlock(), vue.createElementBlock("i", {
+                key: 0,
+                class: "my-select-clear",
+                role: "button",
+                "aria-label": vue.unref(index.i18n)("common.clear"),
+                title: vue.unref(index.i18n)("common.clear")
+              }, null, 8, _hoisted_1)) : vue.createCommentVNode("v-if", true),
               vue.createVNode(myIcon.default, {
                 class: vue.normalizeClass(["my-select-arrow my-style-font_arrow icon-jt-x iconfont my-icon-downList-arrow", [{
                   "my-select-arrow-middle": __props.size == "middle"

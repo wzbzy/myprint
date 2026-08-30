@@ -43,7 +43,7 @@ export declare const mouseTips: {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;
@@ -110,7 +110,7 @@ export declare const mouseTips: {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -178,7 +178,7 @@ export declare const mouseTips: {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -260,7 +260,7 @@ export declare const mouseTips: {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -328,7 +328,7 @@ export declare const mouseTips: {
                                     qrCodeScale: number;
                                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                     keepRatio: boolean;
-                                    fixed: boolean;
+                                    fixed?: boolean;
                                     fontFamily: string;
                                     fontSize: number;
                                     opacity: number;
@@ -437,7 +437,7 @@ export declare const mouseTips: {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -512,7 +512,7 @@ export declare const mouseTips: {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -580,7 +580,7 @@ export declare const mouseTips: {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -662,7 +662,7 @@ export declare const mouseTips: {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -730,7 +730,7 @@ export declare const mouseTips: {
                                     qrCodeScale: number;
                                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                     keepRatio: boolean;
-                                    fixed: boolean;
+                                    fixed?: boolean;
                                     fontFamily: string;
                                     fontSize: number;
                                     opacity: number;
@@ -839,7 +839,7 @@ export declare const mouseTips: {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -907,7 +907,7 @@ export declare const mouseTips: {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -989,7 +989,7 @@ export declare const mouseTips: {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -1057,7 +1057,7 @@ export declare const mouseTips: {
                                     qrCodeScale: number;
                                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                     keepRatio: boolean;
-                                    fixed: boolean;
+                                    fixed?: boolean;
                                     fontFamily: string;
                                     fontSize: number;
                                     opacity: number;
@@ -1171,7 +1171,7 @@ export declare const mouseTips: {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -1239,7 +1239,7 @@ export declare const mouseTips: {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -1333,7 +1333,7 @@ export declare const mouseTips: {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -1401,7 +1401,7 @@ export declare const mouseTips: {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -1483,7 +1483,7 @@ export declare const mouseTips: {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -1551,7 +1551,7 @@ export declare const mouseTips: {
                                     qrCodeScale: number;
                                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                     keepRatio: boolean;
-                                    fixed: boolean;
+                                    fixed?: boolean;
                                     fontFamily: string;
                                     fontSize: number;
                                     opacity: number;
@@ -1676,7 +1676,7 @@ export declare const mouseTips: {
                     qrCodeScale: number;
                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                     keepRatio: boolean;
-                    fixed: boolean;
+                    fixed?: boolean;
                     fontFamily: string;
                     fontSize: number;
                     opacity: number;
@@ -1744,7 +1744,7 @@ export declare const mouseTips: {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;
@@ -1826,7 +1826,7 @@ export declare const mouseTips: {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;
@@ -1894,7 +1894,7 @@ export declare const mouseTips: {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -2013,7 +2013,7 @@ export declare const mouseTips: {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;
@@ -2080,7 +2080,7 @@ export declare const mouseTips: {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -2148,7 +2148,7 @@ export declare const mouseTips: {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -2230,7 +2230,7 @@ export declare const mouseTips: {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -2298,7 +2298,7 @@ export declare const mouseTips: {
                                     qrCodeScale: number;
                                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                     keepRatio: boolean;
-                                    fixed: boolean;
+                                    fixed?: boolean;
                                     fontFamily: string;
                                     fontSize: number;
                                     opacity: number;
@@ -2407,7 +2407,7 @@ export declare const mouseTips: {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -2482,7 +2482,7 @@ export declare const mouseTips: {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -2550,7 +2550,7 @@ export declare const mouseTips: {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -2632,7 +2632,7 @@ export declare const mouseTips: {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -2700,7 +2700,7 @@ export declare const mouseTips: {
                                     qrCodeScale: number;
                                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                     keepRatio: boolean;
-                                    fixed: boolean;
+                                    fixed?: boolean;
                                     fontFamily: string;
                                     fontSize: number;
                                     opacity: number;
@@ -2809,7 +2809,7 @@ export declare const mouseTips: {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -2877,7 +2877,7 @@ export declare const mouseTips: {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -2959,7 +2959,7 @@ export declare const mouseTips: {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -3027,7 +3027,7 @@ export declare const mouseTips: {
                                     qrCodeScale: number;
                                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                     keepRatio: boolean;
-                                    fixed: boolean;
+                                    fixed?: boolean;
                                     fontFamily: string;
                                     fontSize: number;
                                     opacity: number;
@@ -3141,7 +3141,7 @@ export declare const mouseTips: {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -3209,7 +3209,7 @@ export declare const mouseTips: {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -3303,7 +3303,7 @@ export declare const mouseTips: {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -3371,7 +3371,7 @@ export declare const mouseTips: {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -3453,7 +3453,7 @@ export declare const mouseTips: {
                                 qrCodeScale: number;
                                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                 keepRatio: boolean;
-                                fixed: boolean;
+                                fixed?: boolean;
                                 fontFamily: string;
                                 fontSize: number;
                                 opacity: number;
@@ -3521,7 +3521,7 @@ export declare const mouseTips: {
                                     qrCodeScale: number;
                                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                                     keepRatio: boolean;
-                                    fixed: boolean;
+                                    fixed?: boolean;
                                     fontFamily: string;
                                     fontSize: number;
                                     opacity: number;
@@ -3652,7 +3652,7 @@ export declare const mouseTips: {
                     qrCodeScale: number;
                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                     keepRatio: boolean;
-                    fixed: boolean;
+                    fixed?: boolean;
                     fontFamily: string;
                     fontSize: number;
                     opacity: number;
@@ -3720,7 +3720,7 @@ export declare const mouseTips: {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;
@@ -3802,7 +3802,7 @@ export declare const mouseTips: {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;
@@ -3870,7 +3870,7 @@ export declare const mouseTips: {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -3991,7 +3991,7 @@ export declare const mouseTips: {
                 qrCodeScale: number;
                 qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                 keepRatio: boolean;
-                fixed: boolean;
+                fixed?: boolean;
                 fontFamily: string;
                 fontSize: number;
                 opacity: number;
@@ -4058,7 +4058,7 @@ export declare const mouseTips: {
                     qrCodeScale: number;
                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                     keepRatio: boolean;
-                    fixed: boolean;
+                    fixed?: boolean;
                     fontFamily: string;
                     fontSize: number;
                     opacity: number;
@@ -4126,7 +4126,7 @@ export declare const mouseTips: {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;
@@ -4208,7 +4208,7 @@ export declare const mouseTips: {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;
@@ -4276,7 +4276,7 @@ export declare const mouseTips: {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -4385,7 +4385,7 @@ export declare const mouseTips: {
                     qrCodeScale: number;
                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                     keepRatio: boolean;
-                    fixed: boolean;
+                    fixed?: boolean;
                     fontFamily: string;
                     fontSize: number;
                     opacity: number;
@@ -4460,7 +4460,7 @@ export declare const mouseTips: {
                     qrCodeScale: number;
                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                     keepRatio: boolean;
-                    fixed: boolean;
+                    fixed?: boolean;
                     fontFamily: string;
                     fontSize: number;
                     opacity: number;
@@ -4528,7 +4528,7 @@ export declare const mouseTips: {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;
@@ -4610,7 +4610,7 @@ export declare const mouseTips: {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;
@@ -4678,7 +4678,7 @@ export declare const mouseTips: {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -4787,7 +4787,7 @@ export declare const mouseTips: {
                     qrCodeScale: number;
                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                     keepRatio: boolean;
-                    fixed: boolean;
+                    fixed?: boolean;
                     fontFamily: string;
                     fontSize: number;
                     opacity: number;
@@ -4855,7 +4855,7 @@ export declare const mouseTips: {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;
@@ -4937,7 +4937,7 @@ export declare const mouseTips: {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;
@@ -5005,7 +5005,7 @@ export declare const mouseTips: {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;
@@ -5119,7 +5119,7 @@ export declare const mouseTips: {
                     qrCodeScale: number;
                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                     keepRatio: boolean;
-                    fixed: boolean;
+                    fixed?: boolean;
                     fontFamily: string;
                     fontSize: number;
                     opacity: number;
@@ -5187,7 +5187,7 @@ export declare const mouseTips: {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;
@@ -5281,7 +5281,7 @@ export declare const mouseTips: {
                     qrCodeScale: number;
                     qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                     keepRatio: boolean;
-                    fixed: boolean;
+                    fixed?: boolean;
                     fontFamily: string;
                     fontSize: number;
                     opacity: number;
@@ -5349,7 +5349,7 @@ export declare const mouseTips: {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;
@@ -5431,7 +5431,7 @@ export declare const mouseTips: {
                         qrCodeScale: number;
                         qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                         keepRatio: boolean;
-                        fixed: boolean;
+                        fixed?: boolean;
                         fontFamily: string;
                         fontSize: number;
                         opacity: number;
@@ -5499,7 +5499,7 @@ export declare const mouseTips: {
                             qrCodeScale: number;
                             qrErrorCorrectionLevel: "low" | "medium" | "quartile" | "high" | "L" | "M" | "Q" | "H";
                             keepRatio: boolean;
-                            fixed: boolean;
+                            fixed?: boolean;
                             fontFamily: string;
                             fontSize: number;
                             opacity: number;

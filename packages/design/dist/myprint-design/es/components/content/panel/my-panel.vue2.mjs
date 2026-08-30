@@ -1,9 +1,9 @@
-import { defineComponent, openBlock, createElementBlock, createElementVNode, createVNode, normalizeClass, unref, normalizeStyle, createBlock, createCommentVNode, Fragment, renderList } from 'vue';
+import { defineComponent, openBlock, createElementBlock, createElementVNode, createVNode, normalizeClass, unref, withModifiers, normalizeStyle, createBlock, createCommentVNode, toDisplayString, Fragment, renderList } from 'vue';
 import Rule from '../../my/rule/rule.vue.mjs';
 import { scaleUtil } from '../../../utils/scaleUtil.mjs';
 import { ref, reactive, onMounted, nextTick, onUnmounted } from 'vue-demi';
-import { record } from '../../../utils/historyUtil.mjs';
-import { getCurrentPanel, none, handle, valueUnit } from '../../../utils/elementUtil.mjs';
+import { record, ActionEnum } from '../../../utils/historyUtil.mjs';
+import { getCurrentPanel, none, handle, removeElement, addElement, valueUnit } from '../../../utils/elementUtil.mjs';
 import { useAppStoreHook } from '../../../stores/app.mjs';
 import ElementList from '../../design/element-list.vue.mjs';
 import { mountedKeyboardEvent, unMountedKeyboardEvent } from '../../../utils/keyboardUtil.mjs';
@@ -12,6 +12,7 @@ import Design from '../../design/design.vue.mjs';
 import { initSelecto, selecto } from '../../../plugins/moveable/selecto.mjs';
 import AuxiliaryLine from '../../design/auxiliary/auxiliary-line.vue.mjs';
 import MyIcon from '../../my/icon/my-icon.vue.mjs';
+import { i18n } from '../../../locales/index.mjs';
 import { mitt } from '../../../utils/utils.mjs';
 
 const _hoisted_1 = { class: "design-panel user-select-none" };
@@ -30,6 +31,11 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
       openIs: false
     });
     const auxiliaryLineVisible = ref(true);
+    const batchMoveMenu = reactive({
+      visible: false,
+      x: 0,
+      y: 0
+    });
     let resizeObserver;
     const highlightRule = reactive({
       horizontal: {
@@ -132,6 +138,46 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
         none(valueElement);
       }
     }
+    function getSelectedPanelElements() {
+      return appStore.currentElement.filter(
+        (element) => element.runtimeOption.parent === panel && element.type != "PageHeader" && element.type != "PageFooter"
+      );
+    }
+    function showBatchMoveMenu(event) {
+      const selectedElements = getSelectedPanelElements();
+      if (selectedElements.length < 2 || !panel.pageHeader && !panel.pageFooter) {
+        return;
+      }
+      batchMoveMenu.visible = true;
+      batchMoveMenu.x = event.clientX;
+      batchMoveMenu.y = event.clientY;
+    }
+    function closeBatchMoveMenu() {
+      batchMoveMenu.visible = false;
+    }
+    function moveSelectedElementsTo(target) {
+      const selectedElements = getSelectedPanelElements();
+      batchMoveMenu.visible = false;
+      if (selectedElements.length < 2) {
+        return;
+      }
+      for (let element of selectedElements) {
+        delete element.option.fixed;
+        delete element.option.displayStrategy;
+        removeElement(element);
+        element.x -= target.x;
+        element.y -= target.y;
+        element.x = Math.min(Math.max(element.x, 0), Math.max(target.width - element.width, 0));
+        element.y = Math.min(Math.max(element.y, 0), Math.max(target.height - element.height, 0));
+        addElement(panel, target, element);
+      }
+      updatePanel();
+      record({
+        type: "PANEL",
+        action: ActionEnum.BATCH_MOVE,
+        elementList: selectedElements
+      });
+    }
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock("div", _hoisted_1, [
         createElementVNode("div", _hoisted_2, [
@@ -162,6 +208,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
               class: "affix-container design-content-scroll",
               onScroll: scroll,
               onWheel: wheel,
+              onContextmenu: withModifiers(showBatchMoveMenu, ["prevent"]),
               ref_key: "designScrollRef",
               ref: designScrollRef
             },
@@ -200,6 +247,47 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
             544
             /* NEED_HYDRATION, NEED_PATCH */
           ),
+          unref(batchMoveMenu).visible ? (openBlock(), createElementBlock("div", {
+            key: 0,
+            class: "design-context-menu-mask",
+            onClick: closeBatchMoveMenu
+          }, [
+            createElementVNode(
+              "div",
+              {
+                class: "design-context-menu",
+                style: normalizeStyle({ left: unref(batchMoveMenu).x + "px", top: unref(batchMoveMenu).y + "px" }),
+                onClick: _cache[2] || (_cache[2] = withModifiers(() => {
+                }, ["stop"]))
+              },
+              [
+                unref(panel).pageHeader ? (openBlock(), createElementBlock(
+                  "button",
+                  {
+                    key: 0,
+                    type: "button",
+                    onClick: _cache[0] || (_cache[0] = ($event) => moveSelectedElementsTo(unref(panel).pageHeader))
+                  },
+                  toDisplayString(unref(i18n)("handle.moveToPageHeader")),
+                  1
+                  /* TEXT */
+                )) : createCommentVNode("v-if", true),
+                unref(panel).pageFooter ? (openBlock(), createElementBlock(
+                  "button",
+                  {
+                    key: 1,
+                    type: "button",
+                    onClick: _cache[1] || (_cache[1] = ($event) => moveSelectedElementsTo(unref(panel).pageFooter))
+                  },
+                  toDisplayString(unref(i18n)("handle.moveToPageFooter")),
+                  1
+                  /* TEXT */
+                )) : createCommentVNode("v-if", true)
+              ],
+              4
+              /* STYLE */
+            )
+          ])) : createCommentVNode("v-if", true),
           (openBlock(true), createElementBlock(
             Fragment,
             null,
@@ -216,7 +304,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
           )),
           unref(auxiliaryLineVisible) ? (openBlock(), createElementBlock(
             Fragment,
-            { key: 0 },
+            { key: 1 },
             [
               unref(appStore).auxiliaryLineTmp.x != null ? (openBlock(), createBlock(AuxiliaryLine, {
                 key: 0,

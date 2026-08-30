@@ -553,6 +553,17 @@ function installParentElement(parent, element) {
   }
   element.runtimeOption.parent = parent;
 }
+function normalizePageHeaderFooterFixed(panel) {
+  for (let element of [panel.pageHeader, panel.pageFooter]) {
+    if (!element) {
+      continue;
+    }
+    element.option = element.option ?? {};
+    if (element.option.fixed == null) {
+      element.option.fixed = true;
+    }
+  }
+}
 function clearParent(element) {
   if (element.runtimeOption == null || element.runtimeOption.parent == void 0) {
     return;
@@ -1014,5 +1025,5 @@ function getPrintRealHeight(panel) {
   return panel.height;
 }
 
-export { addElement, autoComputedPanelHeight, changePageSize, changePageUnit, clearPanel, clearParent, computedShapeBound, defaultPreviewData, displayDesign, displayPreview, element2PreviewWrapper, elementBarCodeValueStyle, elementCommonPositionStyle, elementCommonStyle, elementDown, elementGroup, elementUngroup, elementUp, extractVariableNames, formatter, getCurrentPanel, getCurrentPanelUnit, getPositionX, getPositionY, getPreviewData, getPrintRealHeight, getProvider, getRecursionParentPanel, groupListToMap, handle, handleElementType, height, heightValueUnit, initElement, initPanel, innerElementIs, installListParentElement, installPanelParentElement, installParentElement, isPageFooter, isPageHeader, multipleElementGetValue, multipleElementGetValueList, multipleElementSetValue, none, parentInitElement, recursionElement, recursionForElement, recursionUpdateCellParentInitWidth, recursionUpdateCellParentWidth, removeElement, replaceVariables, setCurrentElement, setCurrentPanel, setElementHeightPx, setElementOffsetWidthPx, setElementWidthHeightPx, setElementWidthPx, setPreviewData, setProvider, valueUnit, width, widthValueUnit };
+export { addElement, autoComputedPanelHeight, changePageSize, changePageUnit, clearPanel, clearParent, computedShapeBound, defaultPreviewData, displayDesign, displayPreview, element2PreviewWrapper, elementBarCodeValueStyle, elementCommonPositionStyle, elementCommonStyle, elementDown, elementGroup, elementUngroup, elementUp, extractVariableNames, formatter, getCurrentPanel, getCurrentPanelUnit, getPositionX, getPositionY, getPreviewData, getPrintRealHeight, getProvider, getRecursionParentPanel, groupListToMap, handle, handleElementType, height, heightValueUnit, initElement, initPanel, innerElementIs, installListParentElement, installPanelParentElement, installParentElement, isPageFooter, isPageHeader, multipleElementGetValue, multipleElementGetValueList, multipleElementSetValue, none, normalizePageHeaderFooterFixed, parentInitElement, recursionElement, recursionForElement, recursionUpdateCellParentInitWidth, recursionUpdateCellParentWidth, removeElement, replaceVariables, setCurrentElement, setCurrentPanel, setElementHeightPx, setElementOffsetWidthPx, setElementWidthHeightPx, setElementWidthPx, setPreviewData, setProvider, valueUnit, width, widthValueUnit };
 //# sourceMappingURL=elementUtil.mjs.map

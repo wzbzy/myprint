@@ -36,6 +36,7 @@ export declare function element2PreviewWrapper(element: MyElement | PreviewWrapp
 export declare function installPanelParentElement(panel: Panel): void;
 export declare function installListParentElement(parent: Container, elementList?: Array<MyElement>): void;
 export declare function installParentElement(parent?: Container, element?: MyElement): void;
+export declare function normalizePageHeaderFooterFixed(panel: Panel): void;
 export declare function clearParent(element: MyElement): void;
 export declare function addElement(panel: Panel, parent: Container, element: MyElement): void;
 export declare function removeElement(element: MyElement): void;

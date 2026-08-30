@@ -41,6 +41,8 @@ var handelPanel = {
   "handle.clear.canvas": "\u6E05\u7A7A\u753B\u5E03",
   "handle.print.strategy": "\u6253\u5370\u7B56\u7565",
   "handle.display.strategy": "\u663E\u793A\u7B56\u7565",
+  "handle.moveToPageHeader": "\u79FB\u5165\u9875\u7709",
+  "handle.moveToPageFooter": "\u79FB\u5165\u9875\u811A",
   "handle.height.attr": "\u9AD8\u5EA6\u5C5E\u6027",
   "handle.table.hidden.head": "\u9690\u85CF\u8868\u5934",
   "handle.table.page.head": "\u5206\u9875\u8868\u5934",

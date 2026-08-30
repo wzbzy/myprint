@@ -108,7 +108,7 @@ async function autoPage(previewEl, pageList, panel, previewDataList) {
           previewContext.currentPage.offsetTop = 1;
         }
       }
-      if (previewWrapper.option.fixed && previewWrapper.option.displayStrategy != void 0) {
+      if (previewWrapper.option.fixed && previewWrapper.option.displayStrategy != void 0 && previewWrapper.option.displayStrategy !== "") {
         switch (previewWrapper.option.displayStrategy) {
           case "firstPage":
             if (variable.pageIndex != 1) {
@@ -332,7 +332,9 @@ async function autoPage(previewEl, pageList, panel, previewDataList) {
         }
         previewWrapper.tableHeadList = [...tableHeadList];
         previewWrapper.statisticsList = [...tableStatisticsList];
+        const runtimeOptionParent = previewWrapper.runtimeOption.parent;
         previewWrapper.runtimeOption = parse(stringify(previewWrapper.runtimeOption, "parent"), {});
+        previewWrapper.runtimeOption.parent = runtimeOptionParent;
         previewWrapper.tableBodyList = [bodyList];
         previewWrapper.y = previewContext2.top + 1;
         await autoTableRow(previewContext2, previewDataList2, i);
@@ -376,11 +378,17 @@ async function autoPage(previewEl, pageList, panel, previewDataList) {
       let preview = previewContext.panel.pageHeader;
       previewContext.currentPage.previewWrapperList.push(preview);
       previewContext.top = await computeBottom(preview);
+      if (previewContext.top == null || !(previewContext.top > 0)) {
+        previewContext.top = MathCalc.sumScale(preview.y ?? 0, preview.height ?? 0);
+      }
     }
     if (previewContext.panel.pageFooter) {
       let preview = previewContext.panel.pageFooter;
       previewContext.currentPage.previewWrapperList.push(preview);
       previewContext.bottom = await computeTop(preview);
+      if (previewContext.bottom == null || !(previewContext.bottom > 0)) {
+        previewContext.bottom = preview.y ?? previewContext.panel.height;
+      }
     }
   }
   async function computeBottom(previewWrapper) {
