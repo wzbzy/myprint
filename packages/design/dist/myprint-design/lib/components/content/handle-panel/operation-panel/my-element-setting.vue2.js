@@ -51,6 +51,10 @@ var _sfc_main = /* @__PURE__ */ vue.defineComponent({
       const workEnvironment = elementUtil.multipleElementGetValue("runtimeOption.workEnvironment");
       return workEnvironment != "DataTable";
     });
+    const isPageContainer = vueDemi.computed(() => {
+      const type = elementUtil.multipleElementGetValue("type");
+      return type == "PageHeader" || type == "PageFooter";
+    });
     function includeProps(props, attr) {
       return common.getElementSetting(elementUtil.multipleElementGetValue(props)).includes(attr);
     }
@@ -733,7 +737,7 @@ var _sfc_main = /* @__PURE__ */ vue.defineComponent({
                 _: 1
                 /* STABLE */
               }, 8, ["label"])) : vue.createCommentVNode("v-if", true),
-              vue.unref(elementUtil.multipleElementGetValue)("type") != "DataTable" && vue.unref(noWorkInTableIs) ? (vue.openBlock(), vue.createBlock(myFormItem.default, {
+              vue.unref(isPageContainer) ? (vue.openBlock(), vue.createBlock(myFormItem.default, {
                 key: 12,
                 label: vue.unref(index.i18n)("handle.fixed.position")
               }, {
@@ -835,7 +839,7 @@ var _sfc_main = /* @__PURE__ */ vue.defineComponent({
               )
             ]),
             default: vue.withCtx(() => [
-              vue.unref(elementUtil.multipleElementGetValue)("option.fixed") ? (vue.openBlock(), vue.createBlock(myFormItem.default, {
+              vue.unref(isPageContainer) && vue.unref(elementUtil.multipleElementGetValue)("option.fixed") ? (vue.openBlock(), vue.createBlock(myFormItem.default, {
                 key: 0,
                 label: vue.unref(index.i18n)("handle.display.strategy")
               }, {
