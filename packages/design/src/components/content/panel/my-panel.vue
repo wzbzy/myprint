@@ -244,8 +244,9 @@ function getSelectedPanelElements() {
 function showBatchMoveMenu(event: MouseEvent) {
     const selectedElements = getSelectedPanelElements();
 
-    // 页眉/页脚容器不存在时菜单仍显示，移入时自动创建（存量模板大多没拖过页眉页脚）
-    if (selectedElements.length < 2) {
+    // 页眉/页脚容器不存在时菜单仍显示，移入时自动创建（存量模板大多没拖过页眉页脚）。
+    // 单个元素也允许移入（selectFromInside=false 时从元素上起拖只会单选，≥2 条件会让用户以为功能坏了）
+    if (selectedElements.length < 1) {
         return;
     }
 
@@ -267,7 +268,8 @@ function ensureBatchMoveTarget(key: 'pageHeader' | 'pageFooter'): MyElement {
     }
     const container = {
         id: generateUUID(),
-        type: key,
+        // 元素类型全库约定为首字母大写（'PageHeader'/'PageFooter'），key 只是属性名
+        type: key == 'pageHeader' ? 'PageHeader' : 'PageFooter',
         option: { fixed: true } as ElementOption,
         height: 30
     } as unknown as MyElement;
@@ -288,7 +290,7 @@ function moveSelectedElementsTo(key: 'pageHeader' | 'pageFooter') {
     const selectedElements = getSelectedPanelElements();
 
     batchMoveMenu.visible = false;
-    if (selectedElements.length < 2) {
+    if (selectedElements.length < 1) {
         return;
     }
 

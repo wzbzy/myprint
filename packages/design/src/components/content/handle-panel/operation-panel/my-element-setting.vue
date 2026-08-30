@@ -332,7 +332,7 @@
             </my-form-item>
             
             <my-form-item :label="i18n('handle.fixed.position')"
-                          v-if="multipleElementGetValue('type') != 'DataTable' && noWorkInTableIs">
+                          v-if="isPageContainer">
                 <my-switch
                     :model-value="multipleElementGetValue('option.fixed')"
                     @update:model-value="(val:any)=>multipleElementSetValue('option.fixed', val)"
@@ -387,7 +387,7 @@
             </template>
             
             <my-form-item :label="i18n('handle.display.strategy')"
-                          v-if="multipleElementGetValue('option.fixed')">
+                          v-if="isPageContainer && multipleElementGetValue('option.fixed')">
                 <my-history-select :model-value="multipleElementGetValue('option.displayStrategy')"
                                    @update:model-value="changeDisplayStrategy"
                                    class="width-120"
@@ -463,6 +463,13 @@ const element = computed(() => {
 const noWorkInTableIs = computed(() => {
     const workEnvironment = multipleElementGetValue('runtimeOption.workEnvironment');
     return workEnvironment != 'DataTable';
+});
+
+// 「固定位置」「显示策略」只属于页眉/页脚容器本身：
+// 容器内的子元素已在页眉/页脚内，再设这两个字段无意义；正文元素更不该出现
+const isPageContainer = computed(() => {
+    const type = multipleElementGetValue('type');
+    return type == 'PageHeader' || type == 'PageFooter';
 });
 
 function includeProps(props: string, attr: elementSettingType) {
