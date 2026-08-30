@@ -3,7 +3,8 @@ import Rule from '../../my/rule/rule.vue.mjs';
 import { scaleUtil } from '../../../utils/scaleUtil.mjs';
 import { ref, reactive, onMounted, nextTick, onUnmounted } from 'vue-demi';
 import { record, ActionEnum } from '../../../utils/historyUtil.mjs';
-import { getCurrentPanel, none, handle, removeElement, addElement, valueUnit } from '../../../utils/elementUtil.mjs';
+import { getCurrentPanel, none, handle, initElement, installParentElement, removeElement, addElement, valueUnit } from '../../../utils/elementUtil.mjs';
+import { unit2px } from '../../../utils/devicePixelRatio.mjs';
 import { useAppStoreHook } from '../../../stores/app.mjs';
 import ElementList from '../../design/element-list.vue.mjs';
 import { mountedKeyboardEvent, unMountedKeyboardEvent } from '../../../utils/keyboardUtil.mjs';
@@ -13,7 +14,7 @@ import { initSelecto, selecto } from '../../../plugins/moveable/selecto.mjs';
 import AuxiliaryLine from '../../design/auxiliary/auxiliary-line.vue.mjs';
 import MyIcon from '../../my/icon/my-icon.vue.mjs';
 import { i18n } from '../../../locales/index.mjs';
-import { mitt } from '../../../utils/utils.mjs';
+import { mitt, generateUUID } from '../../../utils/utils.mjs';
 
 const _hoisted_1 = { class: "design-panel user-select-none" };
 const _hoisted_2 = { class: "display-flex" };
@@ -145,7 +146,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     }
     function showBatchMoveMenu(event) {
       const selectedElements = getSelectedPanelElements();
-      if (selectedElements.length < 2 || !panel.pageHeader && !panel.pageFooter) {
+      if (selectedElements.length < 2) {
         return;
       }
       batchMoveMenu.visible = true;
@@ -155,7 +156,30 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     function closeBatchMoveMenu() {
       batchMoveMenu.visible = false;
     }
-    function moveSelectedElementsTo(target) {
+    function ensureBatchMoveTarget(key) {
+      const existing = panel[key];
+      if (existing != null) {
+        return existing;
+      }
+      const container = {
+        id: generateUUID(),
+        type: key,
+        option: { fixed: true },
+        height: 30
+      };
+      initElement(panel, container, 0);
+      container.width = panel.width;
+      container.x = 0;
+      container.y = key == "pageHeader" ? 0 : panel.height - container.height;
+      container.runtimeOption.width = unit2px(panel.width);
+      container.runtimeOption.x = 0;
+      container.runtimeOption.y = unit2px(container.y);
+      panel[key] = container;
+      installParentElement(panel, container);
+      return container;
+    }
+    function moveSelectedElementsTo(key) {
+      const target = ensureBatchMoveTarget(key);
       const selectedElements = getSelectedPanelElements();
       batchMoveMenu.visible = false;
       if (selectedElements.length < 2) {
@@ -261,28 +285,26 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
                 }, ["stop"]))
               },
               [
-                unref(panel).pageHeader ? (openBlock(), createElementBlock(
+                createElementVNode(
                   "button",
                   {
-                    key: 0,
                     type: "button",
-                    onClick: _cache[0] || (_cache[0] = ($event) => moveSelectedElementsTo(unref(panel).pageHeader))
+                    onClick: _cache[0] || (_cache[0] = ($event) => moveSelectedElementsTo("pageHeader"))
                   },
                   toDisplayString(unref(i18n)("handle.moveToPageHeader")),
                   1
                   /* TEXT */
-                )) : createCommentVNode("v-if", true),
-                unref(panel).pageFooter ? (openBlock(), createElementBlock(
+                ),
+                createElementVNode(
                   "button",
                   {
-                    key: 1,
                     type: "button",
-                    onClick: _cache[1] || (_cache[1] = ($event) => moveSelectedElementsTo(unref(panel).pageFooter))
+                    onClick: _cache[1] || (_cache[1] = ($event) => moveSelectedElementsTo("pageFooter"))
                   },
                   toDisplayString(unref(i18n)("handle.moveToPageFooter")),
                   1
                   /* TEXT */
-                )) : createCommentVNode("v-if", true)
+                )
               ],
               4
               /* STYLE */
