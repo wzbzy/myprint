@@ -69,11 +69,15 @@ export function moveSelectedElementsTo(panel: Panel, key: PageContainerKey) {
             delete element.option.displayStrategy;
         }
         removeElement(element);
-        const absoluteX = element.x + (fromIsContainer ? fromParent.x : 0);
-        const absoluteY = element.y + (fromIsContainer ? fromParent.y : 0);
-        element.x = absoluteX - target.x;
-        element.y = absoluteY - target.y;
-        // 批量移入时元素可能来自正文任意位置，相对坐标为负或越界，钳制在容器内
+        // 容器间互移：x/y 本就是相对所在分区的坐标，页眉/页脚是等宽横条，原样照搬即保持相对布局；
+        // 此前按画布绝对坐标换算会被分区自身位置带偏（页脚子元素 y+页脚.y 再钳制），
+        // 批量互移时全部叠到目标分区底边
+        // 正文移入：x/y 是画布绝对坐标，减去分区位置转成相对
+        if (!fromIsContainer) {
+            element.x = element.x - target.x;
+            element.y = element.y - target.y;
+        }
+        // 钳制只在越界时生效（目标分区比元素小/元素来自更小的分区），正常互移不动原坐标
         element.x = Math.min(Math.max(element.x, 0), Math.max(target.width - element.width, 0));
         element.y = Math.min(Math.max(element.y, 0), Math.max(target.height - element.height, 0));
         addElement(panel, target, element);
