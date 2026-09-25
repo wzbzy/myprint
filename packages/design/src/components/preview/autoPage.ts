@@ -102,8 +102,31 @@ export async function autoPage(previewEl: Ref<HTMLDivElement[] | undefined>, pag
         offsetLastElementTop = numberUtil.sumScale(previewWrapper.y, previewWrapper.height);
     }
 
+    function resetDataTableRowIndex(previewWrapperList: PreviewWrapper[]) {
+        if (!Array.isArray(previewWrapperList) || previewWrapperList.length === 0) {
+            return;
+        }
+        for (const previewWrapper of previewWrapperList) {
+            if (!previewWrapper) {
+                continue;
+            }
+            if (previewWrapper.type === 'DataTable') {
+                previewWrapper.previewTableRowIndex = 0;
+                const runtimeOption = previewWrapper.runtimeOption as unknown as Record<string, unknown>;
+                runtimeOption.__fixedOverflowFirstRowRetry = 0;
+                runtimeOption.__fixedOverflowFirstRowIndex = -1;
+            }
+            if (Array.isArray(previewWrapper.previewWrapperList) && previewWrapper.previewWrapperList.length > 0) {
+                resetDataTableRowIndex(previewWrapper.previewWrapperList);
+            }
+        }
+    }
+
     for (let previewData of previewDataList) {
         previewContext.previewData = previewData;
+        // 每条打印数据都会生成独立的分页任务，重置行号避免上一条的续打游标串到下一条。
+        resetDataTableRowIndex(previewElementList);
+        resetDataTableRowIndex(fixedPreviewElementList);
         // 固定高度 表格分页打印
         while (previewContext.pagingRepetition) {
             previewContext.pagingRepetition = false;
@@ -354,6 +377,34 @@ export async function autoPage(previewEl: Ref<HTMLDivElement[] | undefined>, pag
         if (!table) {
             return false;
         }
+        const debugPagination = (() => {
+            try {
+                return new URLSearchParams(window.location.search).get('debugPagination') === '1';
+            } catch {
+                return false;
+            }
+        })();
+        const tableOption = previewWrapper.option as unknown as Record<string, unknown>;
+        const rowHeightPx = (() => {
+            const configuredHeight = tableOption.rowHeightPx ?? tableOption.rowHeight;
+            const height = typeof configuredHeight === 'number' ? configuredHeight : Number(configuredHeight);
+            const heightPx = unit2px(Number.isFinite(height) ? height : 0, panel);
+            return Number.isFinite(heightPx) && heightPx > 0 ? heightPx : 0;
+        })();
+        const canEstimateByMath = rowHeightPx > 0;
+        const estimateTableBodyHeightPx = () => {
+            const configuredHeight = tableOption.headerHeightPx ?? tableOption.headerHeight;
+            const headerHeight = typeof configuredHeight === 'number' ? configuredHeight : Number(configuredHeight);
+            const headerHeightPx = unit2px(headerHeight, panel);
+            const bodyRows = Array.isArray(previewWrapper.tableBodyList) ? previewWrapper.tableBodyList.length : 0;
+            const statisticsRows = Array.isArray(previewWrapper.statisticsList) ? previewWrapper.statisticsList.length : 0;
+            return (Number.isFinite(headerHeightPx) && headerHeightPx > 0 ? headerHeightPx : 0)
+                + rowHeightPx * (bodyRows + statisticsRows);
+        };
+        const getRenderedRootHeightPx = () => {
+            const heightPx = table?.clientHeight ?? 0;
+            return Number.isFinite(heightPx) && heightPx > 0 ? heightPx : 0;
+        };
         const tableHeadList = [...previewWrapper.tableHeadList];
         const headList = lastHeadList(tableHeadList);
         const bodyList = previewWrapper.tableBodyList[0];
@@ -430,7 +481,15 @@ export async function autoPage(previewEl: Ref<HTMLDivElement[] | undefined>, pag
                 }
             }
 
-            if (await isNeedNewPage(unit2px(previewWrapper.y, panel) + table.clientHeight, unit2px(previewContext.bottom, panel))) {
+            const contentHeightPx = getRenderedRootHeightPx() || (canEstimateByMath ? estimateTableBodyHeightPx() : 0);
+            if (debugPagination) {
+                console.log('[myprint][DataTable] AUTO 分页测量', {
+                    contentHeightPx,
+                    renderedHeightPx: getRenderedRootHeightPx(),
+                    estimatedHeightPx: canEstimateByMath ? estimateTableBodyHeightPx() : 0
+                });
+            }
+            if (await isNeedNewPage(unit2px(previewWrapper.y, panel) + contentHeightPx, unit2px(previewContext.bottom, panel))) {
                 // 删除刚才创建的
                 previewWrapper.tableBodyList.pop();
                 previewDataTmpList.pop();
