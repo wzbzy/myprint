@@ -65,8 +65,29 @@ async function autoPage(previewEl, pageList, panel, previewDataList) {
     previewWrapper.offsetLastElementTop = MathCalc.subScale(previewWrapper.y, offsetLastElementTop);
     offsetLastElementTop = MathCalc.sumScale(previewWrapper.y, previewWrapper.height);
   }
+  function resetDataTableRowIndex(previewWrapperList) {
+    if (!Array.isArray(previewWrapperList) || previewWrapperList.length === 0) {
+      return;
+    }
+    for (const previewWrapper of previewWrapperList) {
+      if (!previewWrapper) {
+        continue;
+      }
+      if (previewWrapper.type === "DataTable") {
+        previewWrapper.previewTableRowIndex = 0;
+        const runtimeOption = previewWrapper.runtimeOption;
+        runtimeOption.__fixedOverflowFirstRowRetry = 0;
+        runtimeOption.__fixedOverflowFirstRowIndex = -1;
+      }
+      if (Array.isArray(previewWrapper.previewWrapperList) && previewWrapper.previewWrapperList.length > 0) {
+        resetDataTableRowIndex(previewWrapper.previewWrapperList);
+      }
+    }
+  }
   for (let previewData of previewDataList) {
     previewContext.previewData = previewData;
+    resetDataTableRowIndex(previewElementList);
+    resetDataTableRowIndex(fixedPreviewElementList);
     while (previewContext.pagingRepetition) {
       previewContext.pagingRepetition = false;
       previewContext.currentPreview = void 0;
@@ -256,6 +277,33 @@ async function autoPage(previewEl, pageList, panel, previewDataList) {
     if (!table) {
       return false;
     }
+    const debugPagination = (() => {
+      try {
+        return new URLSearchParams(window.location.search).get("debugPagination") === "1";
+      } catch {
+        return false;
+      }
+    })();
+    const tableOption = previewWrapper.option;
+    const rowHeightPx = (() => {
+      const configuredHeight = tableOption.rowHeightPx ?? tableOption.rowHeight;
+      const height = typeof configuredHeight === "number" ? configuredHeight : Number(configuredHeight);
+      const heightPx = unit2px(Number.isFinite(height) ? height : 0, panel);
+      return Number.isFinite(heightPx) && heightPx > 0 ? heightPx : 0;
+    })();
+    const canEstimateByMath = rowHeightPx > 0;
+    const estimateTableBodyHeightPx = () => {
+      const configuredHeight = tableOption.headerHeightPx ?? tableOption.headerHeight;
+      const headerHeight = typeof configuredHeight === "number" ? configuredHeight : Number(configuredHeight);
+      const headerHeightPx = unit2px(headerHeight, panel);
+      const bodyRows = Array.isArray(previewWrapper.tableBodyList) ? previewWrapper.tableBodyList.length : 0;
+      const statisticsRows = Array.isArray(previewWrapper.statisticsList) ? previewWrapper.statisticsList.length : 0;
+      return (Number.isFinite(headerHeightPx) && headerHeightPx > 0 ? headerHeightPx : 0) + rowHeightPx * (bodyRows + statisticsRows);
+    };
+    const getRenderedRootHeightPx = () => {
+      const heightPx = table?.clientHeight ?? 0;
+      return Number.isFinite(heightPx) && heightPx > 0 ? heightPx : 0;
+    };
     const tableHeadList = [...previewWrapper.tableHeadList];
     const headList = lastHeadList(tableHeadList);
     const bodyList = previewWrapper.tableBodyList[0];
@@ -321,7 +369,15 @@ async function autoPage(previewEl, pageList, panel, previewDataList) {
           break;
         }
       }
-      if (await isNeedNewPage(unit2px(previewWrapper.y, panel) + table.clientHeight, unit2px(previewContext2.bottom, panel))) {
+      const contentHeightPx = getRenderedRootHeightPx() || (canEstimateByMath ? estimateTableBodyHeightPx() : 0);
+      if (debugPagination) {
+        console.log("[myprint][DataTable] AUTO \u5206\u9875\u6D4B\u91CF", {
+          contentHeightPx,
+          renderedHeightPx: getRenderedRootHeightPx(),
+          estimatedHeightPx: canEstimateByMath ? estimateTableBodyHeightPx() : 0
+        });
+      }
+      if (await isNeedNewPage(unit2px(previewWrapper.y, panel) + contentHeightPx, unit2px(previewContext2.bottom, panel))) {
         previewWrapper.tableBodyList.pop();
         previewDataTmpList.pop();
         statisticsData(previewDataTmpList, statisticsListWrapper);
