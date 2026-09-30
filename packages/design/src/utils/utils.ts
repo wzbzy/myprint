@@ -148,6 +148,18 @@ export function printCssStyle() {
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
+
+        /*
+         * Chrome 分片重画 bug 兜底：连续打印时所有记录拼成一条「每页一个 content_page
+         * 盒子」的长条，靠 @page 自然切片。长任务后段 Chrome 会把跨切片边界的绝对定位
+         * 文本重复绘制并整体上移（20 张 40mm 标签连打实测第 19、20 页文字叠印）。
+         * 禁止页面容器内部分片后，切片边界与容器边界重新对齐，叠印消失；
+         * 容器高于纸张（AutoHeight 明细表跨页）时 avoid 无法满足、行为与现状一致。
+         */
+        .my-print-preview-panel__content_page {
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
     }
 
 .display-flex {

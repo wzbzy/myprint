@@ -59,7 +59,7 @@ var _sfc_main = /* @__PURE__ */ vue.defineComponent({
         }
         src.value = url;
       });
-      if (resetHeight && props.element.runtimeOption.workEnvironment !== "DataTable") {
+      if (resetHeight && props.element.runtimeOption.workEnvironment !== "DataTable" && elementUtil.displayDesign(props.element)) {
         props.element.height = props.element.width;
         props.element.runtimeOption.height = props.element.runtimeOption.width;
         props.element.runtimeOption.init.height = props.element.runtimeOption.width;

@@ -54,10 +54,10 @@ function moveSelectedElementsTo(panel, key) {
       delete element.option.displayStrategy;
     }
     removeElement(element);
-    const absoluteX = element.x + (fromIsContainer ? fromParent.x : 0);
-    const absoluteY = element.y + (fromIsContainer ? fromParent.y : 0);
-    element.x = absoluteX - target.x;
-    element.y = absoluteY - target.y;
+    if (!fromIsContainer) {
+      element.x = element.x - target.x;
+      element.y = element.y - target.y;
+    }
     element.x = Math.min(Math.max(element.x, 0), Math.max(target.width - element.width, 0));
     element.y = Math.min(Math.max(element.y, 0), Math.max(target.height - element.height, 0));
     addElement(panel, target, element);

@@ -65,8 +65,29 @@ async function autoPage(previewEl, pageList, panel, previewDataList) {
     previewWrapper.offsetLastElementTop = MathCalc.subScale(previewWrapper.y, offsetLastElementTop);
     offsetLastElementTop = MathCalc.sumScale(previewWrapper.y, previewWrapper.height);
   }
+  function resetDataTableRowIndex(previewWrapperList) {
+    if (!Array.isArray(previewWrapperList) || previewWrapperList.length === 0) {
+      return;
+    }
+    for (const previewWrapper of previewWrapperList) {
+      if (!previewWrapper) {
+        continue;
+      }
+      if (previewWrapper.type === "DataTable") {
+        previewWrapper.previewTableRowIndex = 0;
+        const runtimeOption = previewWrapper.runtimeOption;
+        runtimeOption.__fixedOverflowFirstRowRetry = 0;
+        runtimeOption.__fixedOverflowFirstRowIndex = -1;
+      }
+      if (Array.isArray(previewWrapper.previewWrapperList) && previewWrapper.previewWrapperList.length > 0) {
+        resetDataTableRowIndex(previewWrapper.previewWrapperList);
+      }
+    }
+  }
   for (let previewData of previewDataList) {
     previewContext.previewData = previewData;
+    resetDataTableRowIndex(previewElementList);
+    resetDataTableRowIndex(fixedPreviewElementList);
     while (previewContext.pagingRepetition) {
       previewContext.pagingRepetition = false;
       previewContext.currentPreview = void 0;
@@ -256,6 +277,13 @@ async function autoPage(previewEl, pageList, panel, previewDataList) {
     if (!table) {
       return false;
     }
+    const debugPagination = (() => {
+      try {
+        return new URLSearchParams(window.location.search).get("debugPagination") === "1";
+      } catch {
+        return false;
+      }
+    })();
     const tableHeadList = [...previewWrapper.tableHeadList];
     const headList = lastHeadList(tableHeadList);
     const bodyList = previewWrapper.tableBodyList[0];
@@ -320,6 +348,11 @@ async function autoPage(previewEl, pageList, panel, previewDataList) {
           previewDataTmpList.pop();
           break;
         }
+      }
+      if (debugPagination) {
+        console.log("[myprint][DataTable] AUTO \u5206\u9875\u6D4B\u91CF", {
+          renderedTableHeightPx: table.clientHeight
+        });
       }
       if (await isNeedNewPage(unit2px(previewWrapper.y, panel) + table.clientHeight, unit2px(previewContext2.bottom, panel))) {
         previewWrapper.tableBodyList.pop();

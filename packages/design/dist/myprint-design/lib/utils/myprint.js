@@ -65,7 +65,7 @@ function iFramePrint(panel, html) {
   iframe.setAttribute("id", "print-box");
   iframe.setAttribute(
     "style",
-    `height: ${elementUtil.valueUnit(elementUtil.getPrintRealHeight(panel))}; width: ${elementUtil.valueUnit(panel.width)}; 
+    `height: ${elementUtil.valueUnit(elementUtil.getPrintRealHeight(panel), panel)}; width: ${elementUtil.valueUnit(panel.width, panel)};
         display: none; 
         position: absolute; 
         left: 99999; 
@@ -83,7 +83,7 @@ function iFramePrint(panel, html) {
     *{ margin:0;padding:0; }
     @media print {
       @page {
-        size: ${elementUtil.valueUnit(panel.width)} ${elementUtil.valueUnit(elementUtil.getPrintRealHeight(panel))};
+        size: ${elementUtil.valueUnit(panel.width, panel)} ${elementUtil.valueUnit(elementUtil.getPrintRealHeight(panel), panel)};
         margin: 0;
       }
     }

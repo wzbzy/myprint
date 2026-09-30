@@ -106,6 +106,7 @@ declare const i18nInit: import("vue-i18n").I18n<{
         'handle.clear.canvas': string;
         'handle.print.strategy': string;
         'handle.display.strategy': string;
+        'handle.display.everyPage': string;
         'handle.moveToPageHeader': string;
         'handle.moveToPageFooter': string;
         'handle.moveToContainer': string;
@@ -290,6 +291,7 @@ declare const i18nInit: import("vue-i18n").I18n<{
         'handle.clear.canvas': string;
         'handle.print.strategy': string;
         'handle.display.strategy': string;
+        'handle.display.everyPage': string;
         'handle.moveToPageHeader': string;
         'handle.moveToPageFooter': string;
         'handle.moveToContainer': string;
